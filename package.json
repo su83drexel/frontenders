@@ -1,10 +1,5 @@
 {
   "name": "frontenders",
   "version": "1.0.0",
-  "dependencies": {
-    "express": "^5.1.0"
-  },
-  "scripts": {
-    "start": "cd app && node server.js"
-  }
+  "type": "module"
 }

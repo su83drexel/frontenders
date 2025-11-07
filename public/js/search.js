@@ -1,6 +1,6 @@
 const IMG_BASE = "https://image.tmdb.org/t/p/w342";
 
-function els() {
+function getEls() {
   return {
     grid: document.getElementById("search-results"),
     title: document.getElementById("search-title"),
@@ -9,38 +9,48 @@ function els() {
 }
 
 function posterUrl(path) {
-  return path ? `${IMG_BASE}${path}` : "/placeholder-poster.png";
+  return path ? `${IMG_BASE}${path}` : "/images/placeholder.png";
 }
 
-function showText(container, message) {
+function clear(el) {
+  if (!el) return;
+  el.replaceChildren();
+}
+
+function showMessage(el, text) {
+  if (!el) return;
   const p = document.createElement("p");
-  p.textContent = message;
-  container.replaceChildren(p);
+  p.textContent = text;
+  el.replaceChildren(p);
 }
 
-function createMovieCard(m) {
+function createMovieCard(movie) {
   const article = document.createElement("article");
   article.className = "card";
 
   const link = document.createElement("a");
   link.className = "movie-card";
-  link.href = `/moviepage.html?id=${encodeURIComponent(m.id)}`;
-  link.setAttribute("aria-label", `${m.title ?? "Movie"} details`);
+  link.href = `/moviepage.html?id=${encodeURIComponent(movie.id)}`;
+  link.setAttribute("aria-label", `${movie.title ?? "Movie"} details`);
 
   const img = document.createElement("img");
-  img.src = posterUrl(m.poster_path);
-  img.alt = `${m.title ?? "Movie"} poster`;
+  img.src = posterUrl(movie.poster_path);
+  img.alt = `${movie.title ?? "Movie"} poster`;
   img.style.width = "100%";
   img.style.borderRadius = "10px";
   img.style.display = "block";
+
   link.appendChild(img);
 
   const h3 = document.createElement("h3");
-  h3.textContent = m.title ?? "Untitled";
+  h3.textContent = movie.title ?? "Untitled";
 
   const p = document.createElement("p");
-  const year = (m.release_date || "").slice(0, 4) || "—";
-  const score = typeof m.vote_average === "number" ? m.vote_average.toFixed(1) : "—";
+  const year = (movie.release_date || "").slice(0, 4) || "—";
+  const score =
+    typeof movie.vote_average === "number"
+      ? movie.vote_average.toFixed(1)
+      : "—";
   p.textContent = `${year} • ★ ${score}`;
 
   article.appendChild(link);
@@ -60,58 +70,61 @@ function createPager(q, page, totalPages) {
     return a;
   };
 
-  const prev = page > 1 ? makeLink("Prev", page - 1) : null;
-  const next = page < totalPages ? makeLink("Next", page + 1) : null;
-
-  if (prev) wrap.appendChild(prev);
-  if (next) {
-    if (prev) wrap.appendChild(document.createTextNode(" "));
-    wrap.appendChild(next);
+  if (page > 1) {
+    wrap.appendChild(makeLink("Prev", page - 1));
+  }
+  if (page < totalPages) {
+    if (wrap.childNodes.length) wrap.appendChild(document.createTextNode(" "));
+    wrap.appendChild(makeLink("Next", page + 1));
   }
   return wrap;
 }
 
 async function run() {
   const params = new URLSearchParams(location.search);
-  const q = params.get("q")?.trim();
+  const q = params.get("q")?.trim() || "";
   const page = parseInt(params.get("page") || "1", 10) || 1;
-  const { grid, title, pager } = els();
+
+  const { grid, title, pager } = getEls();
 
   if (title) title.textContent = q ? `Results for ${q}` : "Search";
 
   if (!q) {
-    if (pager) pager.replaceChildren();
+    showMessage(grid, "Type a query above.");
+    clear(pager);
     return;
   }
 
   try {
-    if (grid) showText(grid, "Loading…");
-    if (pager) pager.replaceChildren();
+    showMessage(grid, "Loading…");
+    clear(pager);
 
-    const resp = await fetch(`/api/search?q=${encodeURIComponent(q)}&page=${page}`);
-    if (!resp.ok) {
-      const text = await resp.text();
-      showText(grid, `Search failed: ${text}`);
+    const res = await fetch(`/api/search?q=${encodeURIComponent(q)}&page=${page}`);
+    if (!res.ok) {
+      const txt = await res.text();
+      showMessage(grid, `Search failed: ${txt}`);
       return;
     }
 
-    const data = await resp.json();
-    const movies = data.results || [];
+    const data = await res.json();
+    const movies = Array.isArray(data.results) ? data.results : [];
 
     if (movies.length === 0) {
-      showText(grid, "No results.");
+      showMessage(grid, "No results.");
     } else {
       const frag = document.createDocumentFragment();
-      movies.forEach((m) => frag.appendChild(createMovieCard(m)));
+      for (const m of movies) {
+        frag.appendChild(createMovieCard(m));
+      }
       grid.replaceChildren(frag);
     }
 
     const totalPages = Number(data.total_pages || 1);
     const pagerNode = createPager(q, page, totalPages);
     pager.replaceChildren(pagerNode);
-  } catch (e) {
-    console.error(e);
-    showText(grid, "Unexpected error.");
+  } catch (err) {
+    console.error(err);
+    showMessage(grid, "Unexpected error.");
   }
 }
 

@@ -1,5 +1,8 @@
 const IMG_BASE = "https://image.tmdb.org/t/p/w500";
 
+const TMDB_FALLBACK =
+  "https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg";
+
 function esc(s) {
   return (s || "").replace(/[&<>"']/g, (c) => ({
     "&": "&amp;",
@@ -59,15 +62,15 @@ async function run() {
     if (overview) overview.textContent = m.overview || "No overview.";
 
     if (poster) {
-      if (m.poster_path) {
-        poster.setAttribute("src", `${IMG_BASE}${m.poster_path}`);
-        poster.setAttribute("alt", `${esc(m.title)} poster`);
-        poster.style.display = "block";
-      } else {
-        poster.removeAttribute("src");
-        poster.style.display = "none";
-      }
-    }
+  const src = m.poster_path
+    ? `${IMG_BASE}${m.poster_path}`
+    : TMDB_FALLBACK;
+  poster.setAttribute("src", src);
+  poster.setAttribute("alt", `${esc(m.title)} poster`);
+  poster.loading = "eager";
+  poster.decoding = "async";
+  poster.style.display = "block";
+}
   } catch (err) {
     console.error(err);
     showText(overview, "Unexpected error.");

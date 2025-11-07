@@ -306,6 +306,7 @@ td, th { padding: 8px; vertical-align: top; }
 }
 
 #movie-poster {
+  object-fit: cover;
   display: block;
   width: 100%;
   height: auto;

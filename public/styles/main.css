@@ -1,113 +1,304 @@
+/* =========================
+   Base + Layout
+   ========================= */
+:root {
+  --purple-900: #440381;
+  --red-600: #DB2B39;
+  --gold-400: #F3A712;
+  --lavender-200: #D5AEFA;
+  --bg: #f7f7fb;
+  --text: #1f1f1f;
+  --muted: #666;
+  --surface: #ffffff;
+  --radius: 12px;
+  --shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+html { scroll-behavior: smooth; }
+
 body {
-    margin: 0;
-    font-family: system-ui, sans-serif;
+  margin: 0;
+  color: var(--text);
+  background: var(--bg);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+  line-height: 1.5;
+
+  /* page layout: header at top, footer at bottom */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
+/* main grows to fill remaining space; footer sticks to bottom */
+main { flex: 1 0 auto; }
+
+#site-header, header { flex: 0 0 auto; }
+#site-footer, footer { flex: 0 0 auto; margin-top: auto; }
+
+/* Containers and sections */
 .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 16px;
-    overflow: hidden;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
 }
+.section { padding: 24px 0; }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 12px;
-}
-
+/* Cards and grids */
 .card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 12px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
 }
 
-.content {
-    color: #DB2B39;
-    text-align: center;
-    font-size: 30px;
+/* =========================
+   Header + Navigation
+   ========================= */
+
+header{
+  background-color: var(--purple-900);
+  padding: 0.75rem 2rem;
 }
 
-.subcontent {
-    color: #440381;
-    text-align: center;
-    font-size: 15px;
+.navbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-nav {
-    text-align: right;
-    background-color: #440381; 
-    padding: 10px 20px;
+.nav-links {
+ list-style: none;
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  gap: 1.5rem;
 }
-
-.nav-links li {
-    display: inline-block;
-    margin-left: 20px;
-}
-
+.nav-links li { display: inline-block; }
 .nav-links li a {
-    color: white;
-    padding: 10px 15px;
-    display: inline-block;
-    transition: background-color 0.3s;
+  color: #fff;
+  padding: 10px 15px;
+  display: inline-block;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border-radius: 8px;
+  font-weight: 500;
 }
-
 .nav-links li a:hover {
-    background-color: #D5AEFA;
+  background-color: var(--lavender-200);
+  color: #2b2560;
 }
 
+#signin, #register {
+  background-color: var(--red-600);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  width: 100px;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+#signin:hover, #register:hover { filter: brightness(0.95); }
+
+/* =========================
+   Footer
+   ========================= */
+footer {
+  background-color: var(--purple-900);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.625rem;
+}
+.footer-links-container {
+  align-self: flex-end;
+  padding-right: 3rem;
+  padding-top: 2rem;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+.footer-links li:first-child { font-weight: bold; }
+.footer-links li, li a, a {
+  color: #fff;
+  padding: 0.2rem 0;
+  text-decoration: none;
+}
+.footer-links li a:hover { text-decoration: underline; }
+
+footer nav { 
+  display: flex; 
+  justify-content: flex-end;
+}
+footer p {
+  margin: 0.6rem 0 0 0;
+  text-align: center;
+  font-size: 0.875rem;
+  width: 100%;
+}
+
+/* =========================
+   Hero, Headings, Content
+   ========================= */
+.hero {
+  padding: 32px 20px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-top: 20px;
+}
+.hero h1 { margin: 0 0 8px 0; }
+.hero p { margin: 0; color: var(--muted); }
+
+/* From your index/about sections */
+.content h1 {
+  margin: 24px 0 8px;
+  font-size: 32px;
+  text-align: center;
+}
+.subcontent h2 {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-weight: 500;
+  text-align: center;
+}
+
+/* =========================
+   Filters + Search
+   ========================= */
 .filterButtons {
-    text-align: center;
-    padding: 20px 100px;
+  margin: 16px 0;
+  text-align: center;
 }
-
-.filter-links li {
-    display: inline;
-    padding-right: 20px;
+.filter-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex; gap: 10px; flex-wrap: wrap;
 }
+.filter-links li { display: inline-block; }
 
-button {
-    color: white; 
-    background-color: #D5AEFA;
-    stroke: #440381;
-    border-radius: 5px;
-    padding: 10px;
-    width: 140px;
+.filter-btn,
+.filter-links button {
+  background: var(--gold-400);
+  color: var(--purple-900);
+  border: 0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
 }
+.filter-btn:hover,
+.filter-links button:hover { filter: brightness(0.95); }
 
-.search {
-    text-align: center;
-    align-items: center;
-    padding: 20px;
+.search, .searchbar {
+  display: flex;
+  gap: 12px;
+  margin: 18px 0;
+  align-items: center;
+  text-align: center;
 }
-
+.searchbar input[type="text"],
 .search input[type="text"] {
-    padding: 6px;
-    margin-right: 10px;
-    font-size: 17px;
-    border-radius: 4px;
-    width: 800px;
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: #fff;
 }
 
-.footer-links li {
-    display: block;
-    padding-right: 20px;
+/* =========================
+   Buttons (shared)
+   ========================= */
+.btn {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-weight: 600;
+  background: #eee;
+  color: #222;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn:hover { filter: brightness(0.97); }
+.btn-primary { background: var(--red-600); color: #fff; }
+.btn-primary:hover { filter: brightness(0.95); }
+
+/* Movie card link image wrapper used in search results */
+.movie-card { display: block; text-decoration: none; color: inherit; }
+
+/* =========================
+   Forms (Add Movie, Login, Genre)
+   ========================= */
+form label {
+  display: block;
+  margin-top: 12px;
+  font-weight: 600;
+}
+form input[type="text"],
+form input[type="number"],
+form input[type="password"],
+form textarea,
+form select {
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+}
+form textarea { resize: vertical; }
+
+/* Tables used in HomeGenrePage placeholder */
+table { width: 100%; border-collapse: collapse; }
+td, th { padding: 8px; vertical-align: top; }
+
+/* =========================
+   Utilities
+   ========================= */
+.mt-24 { margin-top: 24px; }
+.center { text-align: center; }
+
+/* “Dev's Favorites” highlight block on index */
+.section.dev-favorites {
+  background-color: var(--gold-400);
+  border-radius: 12px;
+  padding: 12px;
+}
+.section.dev-favorites h3 {
+  margin: 8px 0;
+  color: var(--purple-900);
 }
 
-.footer-links li a {
-    color: white;
-    padding: 5px;
-    display: block;
-}
+/* =========================
+   Responsive
+   ========================= */
+@media (max-width: 720px) {
+  .nav-links {
+    gap: 12px;
+    justify-content: flex-start;
+  }
+  #signin, #register { width: auto; padding: 8px 12px; }
 
-.cardContain {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    transition: 0.3s;
-    border-radius: 5px;
-    padding: 30px 30px;
-    width: 1000px;
-}
-
-.cardContain:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  .hero { padding: 24px 16px; }
 }

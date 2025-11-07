@@ -4,41 +4,33 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FlopFinder Movie Details</title>
+    <title>FlopFinder Movie</title>
     <link rel="stylesheet" href="/styles/main.css" />
 </head>
 
 <body>
-    <header>
-        <div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="search.html">Search</a></li>
-                    <li><a href="HomeGenrePage.html">Genre</a></li>
-                    <li><a href="addMovie.html">Add Movie</a></li>
-                    <li><a href="notifications.html">Notifications</a></li>
-                    <li><a href="profile.html">Profile</a></li>
-                    <li><a href="AboutUs.html">About Us</a></li>
-                    <li><button id="signin" style="background-color: #DB2B39; stroke:white; width: 100px;">Sign in</button></li>
-                    <li><button id="register" style="background-color: #DB2B39; stroke:white; width: 100px;">Register</button></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div id="site-header"></div>
 
-    <footer style="background-color: #440381;">
-        <div>
-            <nav>
-                <ul class="footer-links">
-                    <li style="font-weight: bold; color: white;">Resources</li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">API</a></li>
-                    <li><a href="#">Support</a></li>
-                </ul>
-            </nav>
-        </div>
-    </footer>
+    <main class="container">
+        <section class="hero">
+            <h1 id="movie-title">Movie</h1>
+            <p id="movie-meta">Loading…</p>
+        </section>
+
+        <section class="section grid">
+            <article class="card">
+                <img id="movie-poster" alt="" style="width:100%;border-radius:10px;display:none;" />
+            </article>
+            <article class="card">
+                <h3>Overview</h3>
+                <p id="movie-overview">Loading…</p>
+            </article>
+        </section>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="/js/layout.js" defer></script>
+    <script src="/js/movie.js" defer></script>
 </body>
 
 </html>

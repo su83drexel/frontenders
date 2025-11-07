@@ -9,70 +9,45 @@
 </head>
 
 <body>
-    <header>
-        <div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="search.html">Search</a></li>
-                    <li><a href="HomeGenrePage.html">Genre</a></li>
-                    <li><a href="addMovie.html">Add Movie</a></li>
-                    <li><a href="notifications.html">Notifications</a></li>
-                    <li><a href="profile.html">Profile</a></li>
-                    <li><a href="AboutUs.html">About Us</a></li>
-                    <li><button id="signin" style="background-color: #DB2B39; stroke:white; width: 100px;">Sign in</button></li>
-                    <li><button id="register" style="background-color: #DB2B39; stroke:white; width: 100px;">Register</button></li>
+    <div id="site-header"></div>
+    <main class="container">
+
+        <section>
+            <div class="content">
+                <h1>Flop Finder</h1>
+            </div>
+            <div class="subcontent">
+                <h2>Brought to you by FrontEnders</h2>
+            </div>
+        </section>
+
+        <section>
+            <div class="filterButtons">
+                <ul class="filter-links">
+                    <li><button id="genre">Genre</button></li>
+                    <li><button id="actors">Actor/Actress</button></li>
+                    <li><button id="year">Year</button></li>
+                    <li><button id="rating">Rating</button></li>
                 </ul>
-            </nav>
-        </div>
-    </header>
+            </div>
+        </section>
+        <section>
+            <div class="searchbar">
+                <form id="home-search-form" class="searchbar" action="/search.html" method="GET">
+                    <input id="home-search-input" type="text" name="q" placeholder="Search Movies…" required />
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+            </div>
+        </section>
 
-    <section>
-        <div class="content">
-            <h1>Flop Finder</h1>
-        </div>
-        <div class="subcontent">
-            <h2>Brought to you by FrontEnders</h2>
-        </div>
-    </section>
-
-    <section>
-        <div class="filterButtons">
-            <ul class="filter-links">
-                <li><button id="genre">Genre</button></li>
-                <li><button id="actors">Actor/Actress</button></li>
-                <li><button id="year">Year</button></li>
-                <li><button id="rating">Rating</button></li>
-            </ul>
-        </div>
-    </section>
-
-    <section>
-        <div class="search">
-            <input id="searchBar" type="text" name="search" placeholder="Search Movies...">
-        </div>
-    </section>
-
-    <section style="background-color: #F3A712;">
-        <div>
-            <h3 style="color: #440381;">Dev's Favorites</h3>
-        </div>
-    </section>
-
-    <footer style="background-color: #440381;">
-        <div>
-            <nav>
-                <ul class="footer-links">
-                    <li style="font-weight: bold; color: white;">Resources</li>
-                    <li><a href="AboutUs.html">About Us</a></li>
-                    <li><a href="#">API</a></li>
-                    <li><a href="#">Support</a></li>
-                </ul>
-            </nav>
-        </div>
-    </footer>
-
-    <script src="/js/app.js" defer></script>
+        <section style="background-color: #F3A712;">
+            <div>
+                <h3 style="color: #440381;">Dev's Favorites</h3>
+            </div>
+        </section>
+    </main>
+    <div id="site-footer"></div>
+    <script src="/js/layout.js" defer></script>
 </body>
 
 </html>

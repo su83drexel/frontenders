@@ -9,36 +9,25 @@
 </head>
 
 <body>
-    <header>
-        <div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="search.html">Search</a></li>
-                    <li><a href="HomeGenrePage.html">Genre</a></li>
-                    <li><a href="addMovie.html">Add Movie</a></li>
-                    <li><a href="notifications.html">Notifications</a></li>
-                    <li><a href="profile.html">Profile</a></li>
-                    <li><a href="AboutUs.html">About Us</a></li>
-                    <li><button id="signin" style="background-color: #DB2B39; stroke:white; width: 100px;">Sign in</button></li>
-                    <li><button id="register" style="background-color: #DB2B39; stroke:white; width: 100px;">Register</button></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div id="site-header"></div>
 
-    <footer style="background-color: #440381;">
-        <div>
-            <nav>
-                <ul class="footer-links">
-                    <li style="font-weight: bold; color: white;">Resources</li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">API</a></li>
-                    <li><a href="#">Support</a></li>
-                </ul>
-            </nav>
-        </div>
-    </footer>
+    <main class="container">
+        <section class="hero">
+            <h1 id="search-title">Search</h1>
+            <form class="searchbar" action="/search.html" method="GET">
+                <input id="searchBar" type="text" name="q" placeholder="Search Movies…" required />
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+        </section>
+
+        <section class="section">
+            <div class="grid" id="search-results"></div>
+            <div id="pager" class="mt-24"></div>
+        </section>
+    </main>
+    <div id="site-footer"></div>
+    <script src="/js/layout.js" defer></script>
+    <script src="/js/search.js" defer></script>
 </body>
 
 </html>

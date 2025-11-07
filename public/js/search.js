@@ -30,7 +30,7 @@ function createMovieCard(movie) {
 
   const link = document.createElement("a");
   link.className = "movie-card";
-  link.href = `/moviepage.html?id=${encodeURIComponent(movie.id)}`;
+  link.href = `/moviePage.html?id=${encodeURIComponent(movie.id)}`;
   link.setAttribute("aria-label", `${movie.title ?? "Movie"} details`);
 
   const img = document.createElement("img");

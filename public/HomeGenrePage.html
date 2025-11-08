@@ -12,11 +12,11 @@
     object-fit: cover;     /* keeps proportions while cropping edges */
     border-radius: 8px;    /* optional rounding */
   }
-  table 
+  table
   {
   margin: 40px auto;
-  border-collapse: separate; 
-  border-spacing: 100px;      
+  border-collapse: separate;
+  border-spacing: 100px;
   }
   </style>
 </head>
@@ -32,10 +32,10 @@
     <section class="section">
       <form class="card" id="genre-form" aria-labelledby="genre-title">
         <h2 id="genre-title" style="margin-top:0;">Genres</h2>
-        
+
         <div class="grid">
           <table id = "genreTable">
-    
+
           </table>
         </div>
 
@@ -80,7 +80,7 @@
       cell.innerHTML = `
         <img src="${img.src}" alt="${img.alt}">
         <br>
-        <button>${img.alt}</button><br>
+        <button id="button">${img.alt}</button><br>
         <input type="color" value="${img.color}">
       `;
       row.appendChild(cell);

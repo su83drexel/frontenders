@@ -37,14 +37,21 @@ function createMovieCard(movie) {
   link.href = `/moviePage.html?id=${encodeURIComponent(movie.id)}`;
   link.setAttribute("aria-label", `${movie.title ?? "Movie"} details`);
 
+  const wrap = document.createElement("div");
+  wrap.className = "poster-wrap";
+
+
   const img = document.createElement("img");
   img.src = posterUrl(movie.poster_path);
   img.alt = `${movie.title ?? "Movie"} poster`;
   img.style.width = "100%";
   img.style.borderRadius = "10px";
   img.style.display = "block";
+  img.loading = "lazy";
+  img.decoding = "async";
 
-  link.appendChild(img);
+  wrap.appendChild(img)
+  link.appendChild(wrap);
 
   const h3 = document.createElement("h3");
   h3.textContent = movie.title ?? "Untitled";

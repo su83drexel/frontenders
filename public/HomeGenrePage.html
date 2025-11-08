@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FlopFinder Genres</title>
   <link rel="stylesheet" href="/styles/main.css" />
+  <style>
+  .image-cell img {
+    width: 150px;          /* fixed width */
+    height: 150px;         /* fixed height */
+    object-fit: cover;     /* keeps proportions while cropping edges */
+    border-radius: 8px;    /* optional rounding */
+  }
+  table 
+  {
+  margin: 40px auto;
+  border-collapse: separate; 
+  border-spacing: 100px;      
+  }
+  </style>
 </head>
 <body>
   <div id="site-header"></div>
@@ -18,12 +32,11 @@
     <section class="section">
       <form class="card" id="genre-form" aria-labelledby="genre-title">
         <h2 id="genre-title" style="margin-top:0;">Genres</h2>
-
+        
         <div class="grid">
-          <label><input type="checkbox" name="genre" value="28"> Action</label>
-          <label><input type="checkbox" name="genre" value="35"> Comedy</label>
-          <label><input type="checkbox" name="genre" value="27"> Horror</label>
-          <label><input type="checkbox" name="genre" value="10749"> Romance</label>
+          <table id = "genreTable">
+    
+          </table>
         </div>
 
         <div class="mt-24">
@@ -32,6 +45,47 @@
       </form>
     </section>
   </main>
+  <script>
+    const images = [
+      { src: "images/Adventure.png", alt: "Adventure", color: "#ffcccc" },
+      { src: "images/animation.png", alt: "Animation", color: "#cce5ff" },
+      { src: "images/Comedy.png", alt: "Comedy", color: "#e6ffe6" },
+      { src: "images/Crime.png", alt: "Crime", color: "#fff0b3" },
+      { src: "images/detective.png", alt: "Mystery", color: "#f0ccff" },
+      { src: "images/Documentary.png", alt: "Documentary", color: "#d9f7ff" },
+      { src: "images/drama.png", alt: "Drama", color: "#f0ccff" },
+      { src: "images/Family.png", alt: "Family", color: "#f0ccff" },
+      { src: "images/Fantasy.png", alt: "Fantasy", color: "#f0ccff" },
+      { src: "images/History.png", alt: "History", color: "#f0ccff" },
+      { src: "images/music.png", alt: "Music", color: "#f0ccff" },
+      { src: "images/romance.png", alt: "Romance", color: "#f0ccff" },
+      { src: "images/ScienceFiction.png", alt: "ScienceFiction", color: "#f0ccff" },
+      { src: "images/Thriller.png", alt: "Thriller", color: "#f0ccff" },
+      { src: "images/TVMovie.png", alt: "TVMovie", color: "#f0ccff" },
+      { src: "images/war.png", alt: "War", color: "#f0ccff" }
+    ];
+
+    const table = document.getElementById("genreTable");
+    const columnsPerRow = 3;
+    let row;
+
+    images.forEach((img, i) => {
+      if (i % columnsPerRow === 0) {
+        row = document.createElement("tr");
+        table.appendChild(row);
+      }
+
+      const cell = document.createElement("td");
+      cell.classList.add("image-cell");
+      cell.innerHTML = `
+        <img src="${img.src}" alt="${img.alt}">
+        <br>
+        <button>${img.alt}</button><br>
+        <input type="color" value="${img.color}">
+      `;
+      row.appendChild(cell);
+    });
+  </script>
 
   <div id="site-footer"></div>
 

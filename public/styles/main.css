@@ -292,13 +292,59 @@ td, th { padding: 8px; vertical-align: top; }
 /* =========================
    Responsive
    ========================= */
-@media (max-width: 720px) {
-  .nav-links {
-    gap: 12px;
-    justify-content: flex-start;
+@media (max-width: 48rem) {
+  .section.movie-detail {
+    grid-template-columns: 1fr;
   }
-  #signin, #register { width: auto; padding: 8px 12px; }
+}
 
-  .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-  .hero { padding: 24px 16px; }
+.section.movie-detail {
+  display: grid;
+  grid-template-columns: minmax(0, 20rem) 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+#movie-poster {
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.625rem;
+}
+
+#movie-title {
+  margin: 0 0 0.25rem 0;
+  font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2rem);
+  line-height: 1.2;
+}
+#movie-meta {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.section.movie-detail .card h3 {
+  margin: 0 0 0.5rem 0;
+}
+
+.poster-wrap {
+  aspect-ratio: 2 / 3;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0.625rem;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.poster-wrap img {
+  width: 100%;
+  height: 100%;
+  width: auto;
+  height: auto;
+  display: block;
+  object-fit: contain;   
 }

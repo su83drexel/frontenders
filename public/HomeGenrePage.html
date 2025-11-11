@@ -80,14 +80,11 @@
       cell.innerHTML = `
         <img src="${img.src}" alt="${img.alt}">
         <br>
-        <button id="button">${img.alt}</button><br>
+        <button class="button">${img.alt}</button><br>
         <input type="color" value="${img.color}">
       `;
       row.appendChild(cell);
-      let button = document.getElementById("button");
-      button.addEventListener("click", () => {
-        window.location.href = "genres.html";
-      });
+
     });
   </script>
 
@@ -95,5 +92,6 @@
 
   <script src="/js/layout.js" defer></script>
   <script src="/js/app.js" defer></script>
+  <script src="/js/genre.js" defer></script>
 </body>
 </html>

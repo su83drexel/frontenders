@@ -197,8 +197,8 @@ footer p {
 
 .filter-btn,
 .filter-links button {
-  background: var(--gold-400);
-  color: var(--purple-900);
+  background: #B891DC;
+  color: white;
   border: 0;
   padding: 8px 12px;
   border-radius: 10px;
@@ -222,6 +222,7 @@ footer p {
   border-radius: 10px;
   border: 1px solid #ddd;
   background: #fff;
+  width: 100%;
 }
 
 /* =========================

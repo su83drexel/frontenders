@@ -22,55 +22,26 @@
 </head>
 <body>
   <div id="site-header"></div>
-<script>
-const genres = [
-  { id: 28, name: 'Action' },
-  { id: 12, name: 'Adventure' },
-  { id: 16, name: 'Animation' },
-  { id: 35, name: 'Comedy' },
-  { id: 80, name: 'Crime' },
-  { id: 99, name: 'Documentary' },
-  { id: 18, name: 'Drama' },
-  { id: 10751, name: 'Family' },
-  { id: 14, name: 'Fantasy' },
-  { id: 36, name: 'History' },
-  { id: 27, name: 'Horror' },
-  { id: 10402, name: 'Music' },
-  { id: 9648, name: 'Mystery' },
-  { id: 10749, name: 'Romance' },
-  { id: 878, name: 'Science Fiction' },
-  { id: 10770, name: 'TV Movie' },
-  { id: 53, name: 'Thriller' },
-  { id: 10752, name: 'War' },
-  { id: 37, name: 'Western' }
-];
-//Inmutable Genres list from API
- async function func (url, value){
-  const response = await fetch(`${url}/api/discover?with_genres=${value}`);
-  const data = await response.json();
-  return data;
-}
 
-async function genre_handler(){
-  const genre = localStorage.getItem("selectedGenre");
-  console.log("Genre from localStorage:", genre);
-  const url = 'http://localhost:3000';
+  <main class="container">
+    <section class="hero">
+      <h1 id="title"></h1>
+    </section>
+  </main>
 
-  for(let type of genres){
-    if(type.name === genre){
-      const data = await func(url, type.id);
-      console.log(data);
-    }
-  }
+    <section class="section">
+        <form class="card" id="genre-form" aria-labelledby="genre-title">
+          <h2 id="genre-title" style="margin-top:0;">Movies</h2>
 
-}
+          <div class="grid">
+            <table id="moviesTable">
+            </table>
+          </div>
 
-genre_handler();
-
-</script>
   <div id="site-footer"></div>
 
   <script src="/js/layout.js" defer></script>
   <script src="/js/app.js" defer></script>
+    <script src="/js/genre.js" defer></script>
 </body>
 </html>

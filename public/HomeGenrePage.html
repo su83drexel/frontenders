@@ -86,12 +86,26 @@
       row.appendChild(cell);
 
     });
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+    const buttons = document.querySelectorAll("button");
+
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          let value = button.textContent;
+          localStorage.setItem("selectedGenre", value);
+          window.open('genres.html', '_blank');
+        });
+      });
+      });
+
   </script>
 
   <div id="site-footer"></div>
 
   <script src="/js/layout.js" defer></script>
   <script src="/js/app.js" defer></script>
-  <script src="/js/genre.js" defer></script>
+  <!--<script src="/js/genre.js" defer></script>-->
 </body>
 </html>

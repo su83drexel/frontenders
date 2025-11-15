@@ -9,7 +9,7 @@ import {createMovieCard, genres} from "./exportfunctions.js";
 async function genre_handler(){
   const genre = localStorage.getItem("selectedGenre");
   console.log("Genre from localStorage:", genre);
-  const url = 'http://localhost:3000';
+  const url = 'https://frontenders-gules.vercel.app';
 
   for(let type of genres){
     if(type.name === genre){

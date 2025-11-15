@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FlopFinder Genres</title>
-  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="styles/main.css" />
   <style>
   .image-cell img {
     width: 150px;          /* fixed width */
@@ -69,7 +69,7 @@
     const columnsPerRow = 3;
     let row;
 
-    images.forEach((img, i) => {
+    images.forEach((img, i) => {//loop through and create cells for each image
       if (i % columnsPerRow === 0) {
         row = document.createElement("tr");
         table.appendChild(row);
@@ -104,8 +104,8 @@
 
   <div id="site-footer"></div>
 
-  <script src="/js/layout.js" defer></script>
-  <script src="/js/app.js" defer></script>
+  <script src="js/layout.js" defer></script>
+  <script src="js/app.js" defer></script>
   <!--<script src="/js/genre.js" defer></script>-->
 </body>
 </html>

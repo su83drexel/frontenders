@@ -348,3 +348,137 @@ td, th { padding: 8px; vertical-align: top; }
   display: block;
   object-fit: contain;   
 }
+
+.theme-action
+{
+  --primary:"FF0000";
+  --secondary: "FF8200";
+  --tertiary: "FFC100";
+  --quaternary:"FFEAAE";
+}
+.theme-adventure
+{
+  --primary:"8FD694";
+  --secondary:"7DBA84";
+  --tertiary:"77AD78";
+  --quaternary:"6F8F72";
+}
+.theme-animation
+{
+  --primary:"1c3144";
+  --secondary:"ffba08";
+  --tertiary:"A2AEBB";
+  --quaternary:"3F88C5";
+} 
+.theme-comedy 
+{
+  --primary:"EE6352";
+  --secondary:"59CD90";
+  --tertiary:"3FA7D6";
+  --quaternary:"FAC05E";
+}
+.theme-crime
+{
+  --primary: "847577";
+  --secondary: "A6A2A2";
+  --tertiary: "CFD2CD";
+  --quaternary: "E5E6E4";
+}
+.theme-documentary 
+{
+  --primary: "34623F";
+  --secondary: "607744";
+  --tertiary: "768948";
+  --quaternary: "B39C4D";
+}
+.theme-drama
+{
+  --primary: "83B5D1";
+  --secondary: "7698B3";
+  --tertiary: "726E97";
+  --quaternary: "7F557D";
+}
+.theme-family 
+{
+  --primary: "16697A";
+  --secondary: "489FB5";
+  --tertiary: "82C0CC";
+  --quaternary: "EDE7E3";
+}
+.theme-fantasy
+{
+  --primary: "36382E";
+  --secondary: "5BC3EB";
+  --tertiary: "DADAD9";
+  --quaternary: "EDE6E3";
+}
+.theme-history
+{
+  --primary: "CF995F";
+  --secondary: "DBAD6A";
+  --tertiary: "DFD5A5";
+  --quaternary: "96897B";
+}
+.theme-horror
+{
+  --primary: "A62639";
+  --secondary: "DB324D";
+  --tertiary: "56494E";
+  --quaternary: "A29C9B";
+}
+.theme-music
+{
+  --primary: "FF9FB2";
+  --secondary: "FBDCE2";
+  --tertiary: "0ACDFF";
+  --quaternary: "60AB9A";
+}
+.theme-mystery
+{
+  --primary: "0F1114";
+  --secondary: "161A23";
+  --tertiary: "222B34";
+  --quaternary: "344449";
+}
+.theme-romance
+{
+  --primary: "F08080";
+  --secondary: "F4978E";
+  --tertiary: "F8AD9D";
+  --quaternary: "FBC4AB";
+}
+.theme-sciencefiction
+{
+  --primary: "07BEB8";
+  --secondary: "3DCCC7";
+  --tertiary: "68D8D6";
+  --quaternary: "9CEAEF";
+}
+.theme-thriller
+{
+  --primary: "051923";
+  --secondary: "003553";
+  --tertiary: "006494";
+  --quaternary: "0582CA";
+}
+.theme-tvmovie
+{
+  --primary: "001011";
+  --secondary: "093A3E";
+  --tertiary: "3AAFB9";
+  --quaternary: "64E9EE";
+}
+.theme-war
+{
+  --primary:"847E89"; 
+  --secondary:"9FA4A9";
+  --tertiary: "AFBFC0";
+  --quaternary: "C2D3CD";
+}
+.theme-western
+{
+  --primary: "FABC3C";
+  --secondary: "FFB238";
+  --tertiary: "F19143";
+  --quaternary: "FF773D";
+}

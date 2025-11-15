@@ -1,25 +1,24 @@
 import {createMovieCard, genres} from "./exportfunctions.js";
 
- async function func (url, value){
-  const response = await fetch(`${url}/api/discover?with_genres=${value}`);
+ async function func (value){
+  const response = await fetch(`/api/discover?with_genres=${value}`);
   const data = await response.json();
   return data;
 }
 
 async function genre_handler(){
   const genre = localStorage.getItem("selectedGenre");
-  console.log("Genre from localStorage:", genre);
-  const url = 'http://localhost:3000';
+  console.log("Genre from localStorage: ", genre);
 
   for(let type of genres){
     if(type.name === genre){
       let title = document.getElementById("title");
       title.innerHTML = type.name;
-      const data = await func(url, type.id);
+      const data = await func(type.id);
       let movies_array = data.results;
       let grid = document.getElementById("genreTable");
 
-      //Center all images in thwe grid and the grid itself
+      //Center all images in the grid and the grid itself
       grid.style.justifyContents = "center";
       grid.style.justifyItems = "center";
       //grid.style.alignItems = "center";

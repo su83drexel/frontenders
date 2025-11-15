@@ -1,7 +1,7 @@
 import {createMovieCard, genres} from "./exportfunctions.js";
 
- async function func (url, value){
-  const response = await fetch(`${url}/api/discover?with_genres=${value}`);
+ async function func (value){
+  const response = await fetch(`/api/discover?with_genres=${value}`);
   const data = await response.json();
   return data;
 }
@@ -9,13 +9,12 @@ import {createMovieCard, genres} from "./exportfunctions.js";
 async function genre_handler(){
   const genre = localStorage.getItem("selectedGenre");
   console.log("Genre from localStorage: ", genre);
-  const url = "https://frontenders-gules.vercel.app";
 
   for(let type of genres){
     if(type.name === genre){
       let title = document.getElementById("title");
       title.innerHTML = type.name;
-      const data = await func(url, type.id);
+      const data = await func(type.id);
       let movies_array = data.results;
       let grid = document.getElementById("genreTable");
 

@@ -1,25 +1,4 @@
-const genres = [
-  { id: 28, name: 'Action' },
-  { id: 12, name: 'Adventure' },
-  { id: 16, name: 'Animation' },
-  { id: 35, name: 'Comedy' },
-  { id: 80, name: 'Crime' },
-  { id: 99, name: 'Documentary' },
-  { id: 18, name: 'Drama' },
-  { id: 10751, name: 'Family' },
-  { id: 14, name: 'Fantasy' },
-  { id: 36, name: 'History' },
-  { id: 27, name: 'Horror' },
-  { id: 10402, name: 'Music' },
-  { id: 9648, name: 'Mystery' },
-  { id: 10749, name: 'Romance' },
-  { id: 878, name: 'Science Fiction' },
-  { id: 10770, name: 'TV Movie' },
-  { id: 53, name: 'Thriller' },
-  { id: 10752, name: 'War' },
-  { id: 37, name: 'Western' }
-];
-//Inmutable Genres list from API
+import {createMovieCard, genres} from "./exportfunctions.js";
 
  async function func (url, value){
   const response = await fetch(`${url}/api/discover?with_genres=${value}`);
@@ -34,20 +13,36 @@ async function genre_handler(){
 
   for(let type of genres){
     if(type.name === genre){
-      title = document.getElementById("title");
+      let title = document.getElementById("title");
       title.innerHTML = type.name;
       const data = await func(url, type.id);
-      movies_array = data.results;
-      movies_array.forEach((movie) => {
-        console.log(movie);
-        console.log(movie.title);
-      });
+      let movies_array = data.results;
+      let grid = document.getElementById("genreTable");
 
+      //Center all images in thwe grid and the grid itself
+      grid.style.justifyContents = "center";
+      grid.style.justifyItems = "center";
+      //grid.style.alignItems = "center";
+
+      //Set up 6 imgs per row and add padding and spacing
+      grid.style.display = "grid";
+      grid.style.gridTemplateColumns = "repeat(6, 1fr)";
+      grid.style.gap = "20px";
+      grid.style.padding = "20px";
+
+      if (movies_array.length === 0 || !grid) {
+        showMessage(grid, "No results.");
+      }
+      else {
+        const frag = document.createDocumentFragment();
+        movies_array.forEach((movie) => {
+          frag.appendChild(createMovieCard(movie));
+        });
+        grid.replaceChildren(frag);
+      }
       return data;
-
     }
   }
-
 }
 
 function set_Up_Page(){

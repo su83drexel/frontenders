@@ -19,7 +19,7 @@ async function genre_handler(){
       let movies_array = data.results;
       let grid = document.getElementById("genreTable");
 
-      //Center all images in thwe grid and the grid itself
+      //Center all images in the grid and the grid itself
       grid.style.justifyContents = "center";
       grid.style.justifyItems = "center";
       //grid.style.alignItems = "center";

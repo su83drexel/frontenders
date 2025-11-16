@@ -26,7 +26,6 @@ body {
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
   line-height: 1.5;
 
-  /* page layout: header at top, footer at bottom */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -167,7 +166,6 @@ footer p {
 .hero h1 { margin: 0 0 8px 0; }
 .hero p { margin: 0; color: var(--muted); }
 
-/* From your index/about sections */
 .content h1 {
   margin: 24px 0 8px;
   font-size: 32px;
@@ -278,7 +276,6 @@ td, th { padding: 8px; vertical-align: top; }
 .mt-24 { margin-top: 24px; }
 .center { text-align: center; }
 
-/* “Dev's Favorites” highlight block on index */
 .section.dev-favorites {
   background-color: var(--gold-400);
   border-radius: 12px;
@@ -347,4 +344,74 @@ td, th { padding: 8px; vertical-align: top; }
   height: auto;
   display: block;
   object-fit: contain;   
+}
+/* ===== Auth page ===== */
+.auth-container {
+  max-width: 720px;
+  margin: 2rem auto;
+}
+
+.auth-card {
+  padding: 1.25rem;
+}
+
+.auth-title {
+  margin: 0 0 0.75rem 0;
+}
+
+.auth-mode-toggle {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.btn.btn-tab[aria-selected="true"] {
+  font-weight: 600;
+  outline: 2px solid currentColor;
+}
+.btn.btn-tab[aria-selected="false"] {
+  opacity: 0.7;
+}
+
+/* Form layout */
+.form {
+  display: grid;
+  gap: 1rem;
+}
+.form-field {
+  display: grid;
+  gap: 0.25rem;
+}
+.input {
+  padding: 0.625rem 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  font: inherit;
+  background: #fff;
+}
+.input:focus {
+  outline: 2px solid #44038122;
+  border-color: #440381;
+}
+
+.form-hint {
+  margin: 0.25rem 0 0 0;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Errors */
+.form-error {
+  color: #b00020;
+  min-height: 1.25rem;
+  font-size: 0.95rem;
+  visibility: hidden;
+}
+.form-error.visible {
+  visibility: visible;
 }

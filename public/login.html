@@ -4,16 +4,48 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FlopFinder Login</title>
+    <title>Sign in or Register · FlopFinder</title>
     <link rel="stylesheet" href="/styles/main.css" />
 </head>
 
 <body>
     <div id="site-header"></div>
-    <main class="container">
+
+    <main class="container auth-container">
+        <section class="card auth-card" aria-labelledby="auth-title">
+            <h1 id="auth-title" class="auth-title">Account</h1>
+
+            <div class="auth-mode-toggle" role="tablist" aria-label="Auth mode">
+                <button id="btn-mode-signin" class="btn btn-tab" role="tab" aria-selected="true">Sign in</button>
+                <button id="btn-mode-register" class="btn btn-tab" role="tab" aria-selected="false">Register</button>
+            </div>
+
+            <form id="auth-form" class="form" novalidate>
+                <div class="form-field">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" class="input" type="email" autocomplete="email" required />
+                </div>
+
+                <div class="form-field">
+                    <label for="password">Password</label>
+                    <input id="password" name="password" class="input" type="password" autocomplete="current-password"
+                        required />
+                    <p class="form-hint">Use at least 8 characters.</p>
+                </div>
+
+                <div id="auth-error" class="form-error" aria-live="polite"></div>
+
+                <div class="form-actions">
+                    <button id="auth-submit" class="btn btn-primary" type="submit">Continue</button>
+                </div>
+            </form>
+        </section>
     </main>
+
     <div id="site-footer"></div>
+
     <script src="/js/layout.js" defer></script>
+    <script type="module" src="/js/login.js"></script>
 </body>
 
 </html>

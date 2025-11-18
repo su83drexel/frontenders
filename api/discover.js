@@ -9,6 +9,8 @@ export default async function handler(req, res) {
     const baseUrl =
       process.env.TMDB_BASE_URL || "https://api.themoviedb.org/3";
 
+    console.log(baseUrl, apiKey, process.env.TMDB_BASE_URL);
+
     const { with_genres, year, vote_average_lte, page = 1 } = req.query;
 
     const params = new URLSearchParams({

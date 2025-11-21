@@ -65,8 +65,8 @@ async function handleSubmit(e) {
   }
 
   const mode = getModeFromURL();
-  const email = $("email")?.value.trim() || "";
-  const password = $("password")?.value || "";
+  const userEmail = $("email")?.value.trim() || "";
+  const userPassword = $("password")?.value || "";
 
   if (!email || !password) {
     showError("Please fill in both email and password.");
@@ -75,13 +75,13 @@ async function handleSubmit(e) {
 
   try {
     if (mode === "register") {
-      const { error } = await client.auth.signUp({ email, password });
+      const { error } = await client.auth.signUp({ email: userEmail, password: userPassword });
       if (error) {
         showError(error.message);
         return;
       }
     } else {
-      const { error } = await client.auth.signInWithPassword({ email, password });
+      const { error } = await client.auth.signInWithPassword({ email: userEmail, password: userPassword });
       if (error) {
         showError(error.message);
         return;
@@ -110,3 +110,5 @@ function boot() {
 }
 
 document.addEventListener("DOMContentLoaded", boot);
+
+document.getElementById("signInButton");

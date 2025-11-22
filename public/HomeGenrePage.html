@@ -21,6 +21,26 @@
   </style>
 </head>
 <body>
+  <div id="dummyAct" class="theme-action" style="visibility: hidden"></div>
+  <div id="dummyAdv" class="theme-adventure" style="visibility: hidden"></div>
+  <div id="dummyAni" class="theme-animation" style="visibility: hidden"></div>
+  <div id="dummyCom" class="theme-comedy" style="visibility: hidden"></div>
+  <div id="dummyCri" class="theme-crime" style="visibility: hidden"></div>
+  <div id="dummyDoc" class="theme-documentary" style="visibility: hidden"></div>
+  <div id="dummyDra" class="theme-drama" style="visibility: hidden"></div>
+  <div id="dummyFam" class="theme-family" style="visibility: hidden"></div>
+  <div id="dummyFan" class="theme-fantasy" style="visibility: hidden"></div>
+  <div id="dummyHis" class="theme-history" style="visibility: hidden"></div>
+  <div id="dummyHor" class="theme-horror" style="visibility: hidden"></div>
+  <div id="dummyMus" class="theme-music" style="visibility: hidden"></div>
+  <div id="dummyMys" class="theme-mystery" style="visibility: hidden"></div>
+  <div id="dummyRom" class="theme-romance" style="visibility: hidden"></div>
+  <div id="dummySF" class="theme-sciencefiction" style="visibility: hidden"></div>
+  <div id="dummyThr" class="theme-thriller" style="visibility: hidden"></div>
+  <div id="dummyTV" class="theme-tvmovie" style="visibility: hidden"></div>
+  <div id="dummyWar" class="theme-war" style="visibility: hidden"></div>
+  <div id="dummyWes" class="theme-western" style="visibility: hidden"></div>
+
   <div id="site-header"></div>
 
   <main class="container">
@@ -45,49 +65,63 @@
       </form>
     </section>
   </main>
+  
+
+  <div id="site-footer"></div>
+
+
+  <script src="/js/layout.js" defer></script>
+  <script src="/js/app.js" defer></script>
+
   <script>
     const images = [
-      { src: "images/Adventure.png", alt: "Adventure", color: "#ffcccc" },
-      { src: "images/animation.png", alt: "Animation", color: "#cce5ff" },
-      { src: "images/Comedy.png", alt: "Comedy", color: "#e6ffe6" },
-      { src: "images/Crime.png", alt: "Crime", color: "#fff0b3" },
-      { src: "images/detective.png", alt: "Mystery", color: "#f0ccff" },
-      { src: "images/Documentary.png", alt: "Documentary", color: "#d9f7ff" },
-      { src: "images/drama.png", alt: "Drama", color: "#f0ccff" },
-      { src: "images/Family.png", alt: "Family", color: "#f0ccff" },
-      { src: "images/Fantasy.png", alt: "Fantasy", color: "#f0ccff" },
-      { src: "images/History.png", alt: "History", color: "#f0ccff" },
-      { src: "images/music.png", alt: "Music", color: "#f0ccff" },
-      { src: "images/romance.png", alt: "Romance", color: "#f0ccff" },
-      { src: "images/ScienceFiction.png", alt: "ScienceFiction", color: "#f0ccff" },
-      { src: "images/Thriller.png", alt: "Thriller", color: "#f0ccff" },
-      { src: "images/TVMovie.png", alt: "TVMovie", color: "#f0ccff" },
-      { src: "images/war.png", alt: "War", color: "#f0ccff" }
+      { src: "images/Adventure.png", alt: "Adventure", color: ".theme-adventure", divC: "dummyAdv" },
+      { src: "images/animation.png", alt: "Animation", color: ".theme-animation", divC: "dummyAni"  },
+      { src: "images/Comedy.png", alt: "Comedy", color: ".theme-comedy", divC: "dummyCom"  },
+      { src: "images/Crime.png", alt: "Crime", color: ".theme-crime", divC: "dummyCri"  },
+      { src: "images/detective.png", alt: "Mystery", color: ".theme-mystery", divC: "dummyMys"  },
+      { src: "images/Documentary.png", alt: "Documentary", color: ".theme-documentary", divC: "dummyDoc"  },
+      { src: "images/drama.png", alt: "Drama", color: ".theme-drama", divC: "dummyDra"  },
+      { src: "images/Family.png", alt: "Family", color: ".theme-family", divC: "dummyFam"  },
+      { src: "images/Fantasy.png", alt: "Fantasy", color: ".theme-fantasy", divC: "dummyFan"  },
+      { src: "images/History.png", alt: "History", color: ".theme-history", divC: "dummyHis"  },
+      { src: "images/music.png", alt: "Music", color: ".theme-music", divC: "dummyMus"  },
+      { src: "images/romance.png", alt: "Romance", color: ".theme-romance", divC: "dummyRom"  },
+      { src: "images/ScienceFiction.png", alt: "ScienceFiction", color: ".theme-sciencefiction", divC: "dummySF"  },
+      { src: "images/Thriller.png", alt: "Thriller", color: ".theme-thriller", divC: "dummyThr"  },
+      { src: "images/TVMovie.png", alt: "TVMovie", color: ".theme-tvmovie", divC: "dummyTV"  },
+      { src: "images/war.png", alt: "War", color: ".theme-war", divC: "dummyWar"  }
     ];
 
-    const table = document.getElementById("genreTable");
-    const columnsPerRow = 3;
-    let row;
-
-    images.forEach((img, i) => {//loop through and create cells for each image
-      if (i % columnsPerRow === 0) {
-        row = document.createElement("tr");
-        table.appendChild(row);
-      }
-
-      const cell = document.createElement("td");
-      cell.classList.add("image-cell");
-      cell.innerHTML = `
-        <img src="${img.src}" alt="${img.alt}">
-        <br>
-        <button class="button">${img.alt}</button><br>
-        <input type="color" value="${img.color}">
-      `;
-      row.appendChild(cell);
-
-    });
+    
 
     document.addEventListener("DOMContentLoaded", () => {
+
+      const element = document.querySelector('.theme-action');
+
+      if(element == null)
+      {
+        console.log("brother whaaat");
+      }
+
+      const table = document.getElementById("genreTable");
+      const columnsPerRow = 3;
+      let row;
+
+    
+      images.forEach((img, i) => {//loop through and create cells for each image
+        if (i % columnsPerRow === 0) {
+          row = document.createElement("tr");
+          table.appendChild(row);
+        }
+
+        const cell = createCellWithTheme(img,"--secondary");
+        cell.classList.add("image-cell");
+  
+        
+        row.appendChild(cell);
+
+      });
 
     const buttons = document.querySelectorAll("button");
 
@@ -98,19 +132,239 @@
           window.open('genres.html', '_blank');
         });
       });
-      });
+    });
+
+    
+    function createCellWithTheme(img, variableName) 
+    {
+      const cell = document.createElement("td");
+
+      
+      //console.log(themeClass.divC);
+      const element = document.getElementById(img.divC);
+
+
+      const styles = getComputedStyle(element);
+
+      const primary = styles.getPropertyValue('--primary').trim();
+      const secondary = styles.getPropertyPriority('--secondary').trim();
+
+
+      /*
+      so for some reason, and i've been pulling my hair out a little bit for this,
+      when i try to access the '--primary' variable of the CSS class, it works.
+
+      but when i try accessing "--secondary", it doesnt. It's very bizarre that 
+      i can access a class, and also access the first variable of that class, but then
+      not the second or third or 4th variable. I hardcoded it all down below because
+      i couldnt think of a better solution, so im very sorry for all the if statements.
+      
+      */
+      //console.log('Primary:', secondary); 
+
+      // Give this cell its own theme palette
+      
+
+      // Read color from that cell's theme
+      const color = getComputedStyle(cell).getPropertyValue('--tertiary').trim();
+      //console.log('Primary:', color); 
+      //console.log(color);
+      cell.style.border = `5px solid ${primary}`;
+      if(img.color == ".theme-adventure")
+      {
+  
+        cell.style.backgroundColor = "#FF8200";
+        cell.innerHTML = `
+          <img src="${img.src}" alt="${img.alt}">
+          <br>
+          <button style = "background-color: #77AD78" class="button">${img.alt}</button><br>
+        `;
+        
+      }
+      if(img.color == ".theme-animation")
+      {
+  
+        cell.style.backgroundColor = "#ffba08";
+        cell.innerHTML = `
+          <img src="${img.src}" alt="${img.alt}">
+          <br>
+          <button style = "background-color: #A2AEBB" class="button">${img.alt}</button><br>
+        `;
+        
+      }
+      if(img.color == ".theme-comedy")
+      {
+  
+        cell.style.backgroundColor = "#59CD90";
+        cell.innerHTML = `
+          <img src="${img.src}" alt="${img.alt}">
+          <br>
+          <button style = "background-color: #3FA7D6" class="button">${img.alt}</button><br>
+        `;
+      }
+      if(img.color == ".theme-crime")
+      {
+  
+        cell.style.backgroundColor = "#A6A2A2";
+        cell.innerHTML = `
+          <img src="${img.src}" alt="${img.alt}">
+          <br>
+          <button style = "background-color: #CFD2CD" class="button">${img.alt}</button><br>
+        `;
+      }
+      if(img.color == ".theme-documentary")
+      {
+  
+        cell.style.backgroundColor = "#768948";
+        cell.innerHTML = `
+          <img src="${img.src}" alt="${img.alt}">
+          <br>
+          <button style = "background-color: #4CAF50" class="button">${img.alt}</button><br>
+        `;
+      }
+      if(img.color == ".theme-drama")
+      {
+  
+        cell.style.backgroundColor = "#7698B3";
+        cell.innerHTML = `
+          <img src="${img.src}" alt="${img.alt}">
+          <br>
+          <button style = "background-color: #726E97" class="button">${img.alt}</button><br>
+        `;
+      }
+      if(img.color == ".theme-family")
+      {
+  
+        cell.style.backgroundColor = "#489FB5";
+        cell.innerHTML = `
+          <img src="${img.src}" alt="${img.alt}">
+          <br>
+          <button style = "background-color: #82C0CC" class="button">${img.alt}</button><br>
+        `;
+      }
+      if(img.color == ".theme-fantasy")
+      {
+  
+        cell.style.backgroundColor = "#5BC3EB";
+        cell.innerHTML = `
+          <img src="${img.src}" alt="${img.alt}">
+          <br>
+          <button style = "background-color: #82C0CC" class="button">${img.alt}</button><br>
+        `;
+      }
+      if(img.color == ".theme-history")
+      {
+  
+        cell.style.backgroundColor = "#DBAD6A";
+        cell.innerHTML = `
+          <img src="${img.src}" alt="${img.alt}">
+          <br>
+          <button style = "background-color: #DFD5A5" class="button">${img.alt}</button><br>
+        `;
+      }
+      if(img.color == ".theme-horror")
+      {
+  
+        cell.style.backgroundColor = "#DB324D";
+        cell.innerHTML = `
+          <img src="${img.src}" alt="${img.alt}">
+          <br>
+          <button style = "background-color: #56494E" class="button">${img.alt}</button><br>
+        `;
+      }
+      if(img.color == ".theme-music")
+      {
+  
+        cell.style.backgroundColor = "#FBDCE2";
+        cell.innerHTML = `
+          <img src="${img.src}" alt="${img.alt}">
+          <br>
+          <button style = "background-color: #0ACDFF" class="button">${img.alt}</button><br>
+        `;
+      }
+      if(img.color == ".theme-mystery")
+      {
+  
+        cell.style.backgroundColor = "#161A23";
+        cell.innerHTML = `
+          <img src="${img.src}" alt="${img.alt}">
+          <br>
+          <button style = "background-color: #222B34" class="button">${img.alt}</button><br>
+        `;
+      }
+      if(img.color == ".theme-romance")
+      {
+  
+        cell.style.backgroundColor = "#F4978E";
+        cell.innerHTML = `
+          <img src="${img.src}" alt="${img.alt}">
+          <br>
+          <button style = "background-color: #F8AD9D" class="button">${img.alt}</button><br>
+        `;
+      }
+      if(img.color == ".theme-sciencefiction")
+      {
+  
+        cell.style.backgroundColor = "#3DCCC7";
+        cell.innerHTML = `
+          <img src="${img.src}" alt="${img.alt}">
+          <br>
+          <button style = "background-color: #68D8D6" class="button">${img.alt}</button><br>
+        `;
+      }
+      if(img.color == ".theme-thriller")
+      {
+  
+        cell.style.backgroundColor = "#003553";
+        cell.innerHTML = `
+          <img src="${img.src}" alt="${img.alt}">
+          <br>
+          <button style = "background-color: #006494" class="button">${img.alt}</button><br>
+        `;
+      }
+      if(img.color == ".theme-tvmovie")
+      {
+  
+        cell.style.backgroundColor = "#093A3E";
+        cell.innerHTML = `
+          <img src="${img.src}" alt="${img.alt}">
+          <br>
+          <button style = "background-color: #3AAFB9" class="button">${img.alt}</button><br>
+        `;
+      }
+      if(img.color == ".theme-war")
+      {
+  
+        cell.style.backgroundColor = "#9FA4A9";
+        cell.innerHTML = `
+          <img src="${img.src}" alt="${img.alt}">
+          <br>
+          <button style = "background-color: #AFBFC0" class="button">${img.alt}</button><br>
+        `;
+      }
+      if(img.color == ".theme-western")
+      {
+  
+        cell.style.backgroundColor = "#FFB238";
+        cell.innerHTML = `
+          <img src="${img.src}" alt="${img.alt}">
+          <br>
+          <button style = "background-color: #4CAF50" class="button">${img.alt}</button><br>
+        `;
+      }
+      if(img.color == ".theme-action")
+      {
+  
+        cell.style.backgroundColor = "#FF8200";
+        cell.innerHTML = `
+          <img src="${img.src}" alt="${img.alt}">
+          <br>
+          <button style = "background-color: #4CAF50" class="button">${img.alt}</button><br>
+        `;
+      }
+      return cell;
+    }
 
   </script>
-
-  <div id="site-footer"></div>
-
-<<<<<<< HEAD
-  <script src="js/layout.js" defer></script>
-  <script src="js/app.js" defer></script>
-  <!--<script src="/js/genre.js" defer></script>-->
-=======
-  <script src="/js/layout.js" defer></script>
-  <script src="/js/app.js" defer></script>
->>>>>>> af9f6f6 (edited HomeGenrePage.html, genre.js, genres.html, Added export_functions.js for movieblock layout for genre-pages dev)
 </body>
 </html>

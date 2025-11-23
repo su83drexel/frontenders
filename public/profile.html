@@ -11,8 +11,72 @@
 <body>
     <div id="site-header"></div>
     <main class="container">
+
+      <section>
+        <form action="submit-profile-pic" id="pic-form">
+          <img src="images/avatar.png" alt="Avatar" id="avatar" class="avatar">
+          <div class="content">
+              <h1>Profile Display Name</h1>
+            </div>
+            <div class="subcontent">
+              <h2>Username</h2>
+          </div>
+          <input type="file" accept="image/*" id="pic-uploader" style="display:none;">
+          <label for="pic-uploader" id="custom-btn" style="float: left;"> Upload Profile Picture</label>
+          <span id="file-name"> No image selected</span>
+          <button type="submit" id="submit" style="float:right;">Submit</button>
+        </form>
+        </section>
+
+        <section>
+        <div class="btn-group">
+          <button id="edit">Edit Profile</button>
+          <button id="add-friend">Add Friend</button>
+          <button id="log-out">Log Out</button>
+        </div>
+        </section>
     </main>
     <div id="site-footer"></div>
+    <script>//Set up image and upload image ablity + added image request system changes
+    //EDIT::: NOT IMPLEMENTED:::
+    //Need for image to be in database for user profile
+    //so on refresh shows up in profile for each user
+
+    const image = document.getElementById("avatar");
+    const picture = document.getElementById("pic-uploader");
+    const form = document.getElementById("pic-form");
+    const button = document.getElementById("submit");
+    const file_name_span = document.getElementById("file-name");
+    const label = document.getElementById("custom-btn");
+
+    picture.addEventListener('change', () =>{
+      const file = picture.files[0];
+      if(picture.files && picture.files.length > 0){
+        file_name_span.textContent = file.name;
+      }
+      else{
+          file_name_span.textContent = "No image selected";
+        }
+
+    });
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const file = picture.files[0];
+      if (!file) return;
+
+      const imgURL = URL.createObjectURL(file);
+      image.src = imgURL;
+      image.style = "display: block; width: 25%;  height: 25%; margin: auto; border-radius: 50%; padding: 8px;";
+      picture.remove();
+      button.remove();
+      label.remove();
+      file_name_span.remove();
+
+    });
+
+    </script>
     <script src="/js/layout.js" defer></script>
 </body>
 

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FlopFinder Genres</title>
-  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="styles/main.css" />
   <style>
   .image-cell img {
     width: 150px;          /* fixed width */
@@ -12,11 +12,11 @@
     object-fit: cover;     /* keeps proportions while cropping edges */
     border-radius: 8px;    /* optional rounding */
   }
-  table 
+  table
   {
   margin: 40px auto;
-  border-collapse: separate; 
-  border-spacing: 100px;      
+  border-collapse: separate;
+  border-spacing: 100px;
   }
   </style>
 </head>
@@ -32,10 +32,10 @@
     <section class="section">
       <form class="card" id="genre-form" aria-labelledby="genre-title">
         <h2 id="genre-title" style="margin-top:0;">Genres</h2>
-        
+
         <div class="grid">
           <table id = "genreTable">
-    
+
           </table>
         </div>
 
@@ -69,7 +69,7 @@
     const columnsPerRow = 3;
     let row;
 
-    images.forEach((img, i) => {
+    images.forEach((img, i) => {//loop through and create cells for each image
       if (i % columnsPerRow === 0) {
         row = document.createElement("tr");
         table.appendChild(row);
@@ -80,16 +80,37 @@
       cell.innerHTML = `
         <img src="${img.src}" alt="${img.alt}">
         <br>
-        <button>${img.alt}</button><br>
+        <button class="button">${img.alt}</button><br>
         <input type="color" value="${img.color}">
       `;
       row.appendChild(cell);
+
     });
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+    const buttons = document.querySelectorAll("button");
+
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          let value = button.textContent;
+          localStorage.setItem("selectedGenre", value);
+          window.open('genres.html', '_blank');
+        });
+      });
+      });
+
   </script>
 
   <div id="site-footer"></div>
 
+<<<<<<< HEAD
+  <script src="js/layout.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <!--<script src="/js/genre.js" defer></script>-->
+=======
   <script src="/js/layout.js" defer></script>
   <script src="/js/app.js" defer></script>
+>>>>>>> af9f6f6 (edited HomeGenrePage.html, genre.js, genres.html, Added export_functions.js for movieblock layout for genre-pages dev)
 </body>
 </html>

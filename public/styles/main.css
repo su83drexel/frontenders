@@ -345,6 +345,7 @@ td, th { padding: 8px; vertical-align: top; }
   height: auto;
   display: block;
 <<<<<<< HEAD
+<<<<<<< HEAD
   object-fit: contain;   
 }
 /* ===== Auth page ===== */
@@ -418,6 +419,8 @@ td, th { padding: 8px; vertical-align: top; }
   visibility: visible;
 }
 =======
+=======
+>>>>>>> e9b3bf7e98de5142d7b5e98f942cd245146b868c
   object-fit: contain;
 }
 
@@ -623,4 +626,7 @@ td, th { padding: 8px; vertical-align: top; }
   background-color: lightgray;
   color: black;
 }
+<<<<<<< HEAD
+>>>>>>> e9b3bf7e98de5142d7b5e98f942cd245146b868c
+=======
 >>>>>>> e9b3bf7e98de5142d7b5e98f942cd245146b868c

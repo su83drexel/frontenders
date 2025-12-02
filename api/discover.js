@@ -5,7 +5,7 @@ export default async function handler(req, res) {
       return res.status(405).json({ error: "Method Not Allowed" });
     }
 
-    const apiKey = process.env.TMDB_API_KEY;
+    const apiKey = "be7c6ab1f7793583e50284e9c7a38816";
     const baseUrl =
       process.env.TMDB_BASE_URL || "https://api.themoviedb.org/3";
 

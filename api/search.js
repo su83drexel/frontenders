@@ -5,7 +5,7 @@ export default async function handler(req, res) {
 
     if (!q) return res.status(400).json({ error: "q is required" });
 
-    const apiKey = process.env.TMDB_API_KEY;
+    const apiKey = "be7c6ab1f7793583e50284e9c7a38816";
     const baseUrl = process.env.TMDB_BASE_URL || "https://api.themoviedb.org/3";
 
     const url = new URL(`${baseUrl}/search/movie`);

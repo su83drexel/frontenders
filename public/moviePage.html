@@ -28,6 +28,25 @@
         </section>
     </main>
 
+    <div class="container">
+        <section class="hero">
+            <h1 id="movie-title">Reviews</h1>
+
+            <div class="starcard">
+                <span onclick="StarRate(1)" class="star">★</span>
+                <span onclick="StarRate(2)" class="star">★</span>
+                <span onclick="StarRate(3)" class="star">★</span>
+                <span onclick="StarRate(4)" class="star">★</span>
+                <span onclick="StarRate(5)" class="star">★</span>
+                <h3 id="output">Rating: 0/5</h3>
+            </div>
+            <form class="commentbox">
+                <input id="commentbox" type="text" name="q" placeholder="Review this movie..." required />
+                <button class="btn btn-primary" type="submit">Post</button>
+            </form>
+        </section>
+    </div>
+
     <div id="site-footer"></div>
     <script src="/js/layout.js" defer></script>
     <script src="/js/movie.js" defer></script>

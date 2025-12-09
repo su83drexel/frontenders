@@ -78,7 +78,7 @@ header{
 .nav-links {
  list-style: none;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   flex: 1;
   margin: 0;
   padding: 0;

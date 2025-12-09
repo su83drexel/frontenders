@@ -2,41 +2,143 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FlopFinder About Us</title>
-    <link rel="stylesheet" href="/styles/main.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FlopFinder About Us</title>
+  <link rel="stylesheet" href="/styles/main.css" />
+
+  <style>
+    /* About page specific layout, consistent with dark theme */
+
+    .about-hero-card {
+      max-width: 48rem;
+      margin: 2.5rem auto 2rem auto;
+      padding: 2rem 2.25rem;
+      border-radius: 1.5rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      text-align: center;
+      box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.7);
+    }
+
+    .about-hero-card h1 {
+      font-size: clamp(2.2rem, 3.4vw, 2.8rem);
+      margin-bottom: 0.4rem;
+    }
+
+    .about-hero-card .muted {
+      max-width: 34rem;
+      margin: 0 auto 1.2rem auto;
+    }
+
+    .about-team-line {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.6fr);
+      gap: 1.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .about-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .about-block p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .about-list {
+      margin: 0.4rem 0 0 0;
+      padding-left: 1.2rem;
+      font-size: 0.95rem;
+    }
+
+    .about-list li {
+      margin-bottom: 0.25rem;
+    }
+
+    @media (max-width: 880px) {
+      .about-hero-card {
+        margin-top: 2rem;
+        padding: 1.8rem 1.5rem;
+      }
+
+      .about-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <div id="site-header"></div>
-    <main class="container">
-        <section>
-            <div class="content">
-                <h1>About Flop Finder</h1>
-            </div>
-            <div class="subcontent">
-                <h2>FrontEnders Team: Adriana Vasquez, Lize Simpson, Shehryar Usman, Ian Lahet, and Chase Padilla</h2>
-            </div>
-        </section>
+  <div id="site-header"></div>
 
-        <section style="align-content: center;">
-            <div>
-                <p style="font-size: 20px; font-weight: bold;">About Us</p>
-            </div>
-            <div class="cardContain" style="margin: 0 auto;">
-                <p style="font-size: 15px;">Our project is a web app similar to websites like Letterboxd and IMDb,
-                    except we will be focusing on and
-                    recommending bad movies instead. We are planning to create this as a social website where users can
-                    find, review, and leave comments
-                    over movies. We will allow the users to be able to search for movies where they can choose how to
-                    rank/filter them dynamically.</p>
-            </div>
-        </section>
-    </main>
-    <div id="site-footer"></div>
+  <main class="container">
+    <!-- Hero card for About page -->
+    <section class="about-hero-card">
+      <h1>About FlopFinder</h1>
+      <p class="muted">
+        FlopFinder is a class project inspired by sites like TMDB, Letterboxd, and IMDb,
+        but focused on the movies that failed in the most memorable ways.
+      </p>
+      <p class="about-team-line">
+        Built by the FrontEnders team:
+        Adriana Vasquez, Lize Simpson, Shehryar Usman, Ian Lahet, and Chase Padilla.
+      </p>
+    </section>
 
-    <script src="/js/layout.js" defer></script>
+    <!-- Main about content -->
+    <section class="section">
+      <div class="about-layout">
+        <article class="card about-block">
+          <div class="section-heading">
+            <h2>Who we are</h2>
+            <span class="muted">FrontEnders • CS375 Final Project team</span>
+          </div>
+          <p>
+            We are a group of students who wanted to build something that feels like a real product:
+            a place where you and your friends can track bad movies, write reviews, and discover new flops to watch.
+          </p>
+          <p>
+            This project is our way of putting front end, backend, and database work together into a single app
+            that still has a clear, fun idea behind it.
+          </p>
+        </article>
+
+        <article class="card about-block">
+          <div class="section-heading">
+            <h2>What FlopFinder is</h2>
+            <span class="muted">A social site for “so bad it is good” movies</span>
+          </div>
+          <p>
+            FlopFinder is a web app where users can find, review, and comment on movies that did not quite hit the mark.
+            The focus is on bad or “so bad it is good” films, and the social part is just as important as the ratings.
+          </p>
+          <p>
+            In its full form, FlopFinder will let you:
+          </p>
+          <ul class="about-list">
+            <li>Search for movies and filter them by genre, year, rating, and more.</li>
+            <li>Write reviews and rate each movie based on how enjoyable the flop was.</li>
+            <li>Comment on other people’s reviews and reply in threads.</li>
+            <li>Add friends or follow users to build a personalized feed.</li>
+            <li>Get recommendations based on what your friends review and what is trending.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="./js/layout.js" defer></script>
 </body>
 
 </html>

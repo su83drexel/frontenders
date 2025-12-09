@@ -29,6 +29,103 @@ function showText(el, text) {
   el.replaceChildren(p);
 }
 
+function formatDate(dateString) {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
+
+function renderMovieSummary(summary) {
+  const avgEl = document.getElementById("movie-average-rating");
+  const countEl = document.getElementById("movie-rating-count");
+
+  if (avgEl) {
+    const avg =
+      typeof summary?.averageRating === "number"
+        ? summary.averageRating.toFixed(1)
+        : summary?.averageRating || "—";
+    avgEl.textContent = avg;
+  }
+
+  if (countEl) {
+    countEl.textContent =
+      summary && typeof summary.ratingCount === "number"
+        ? String(summary.ratingCount)
+        : "0";
+  }
+}
+
+function renderMovieReviews(reviews) {
+  const list = document.getElementById("movie-reviews-list");
+  if (!list) return;
+
+  list.textContent = "";
+
+  if (!Array.isArray(reviews) || reviews.length === 0) {
+    const p = document.createElement("p");
+    p.className = "muted";
+    p.textContent =
+      "No reviews yet. Once someone posts from their profile, you will see it here.";
+    list.appendChild(p);
+    return;
+  }
+
+  reviews.forEach((review) => {
+    const item = document.createElement("div");
+    item.className = "review-item";
+
+    const header = document.createElement("div");
+    header.className = "review-item-header";
+
+    const user = document.createElement("span");
+    user.className = "review-item-user";
+    user.textContent =
+      review?.userProfile?.displayName ||
+      review?.userProfile?.userId ||
+      "Unknown user";
+
+    const meta = document.createElement("span");
+    meta.className = "review-item-meta";
+    const created = formatDate(review?.createdAt);
+    meta.textContent = `${created || "—"} • ${review?.rating ?? "—"} ★`;
+
+    header.appendChild(user);
+    header.appendChild(meta);
+
+    const body = document.createElement("div");
+    body.className = "review-item-body";
+    body.textContent = review?.text || "No review text provided.";
+
+    item.appendChild(header);
+    item.appendChild(body);
+    list.appendChild(item);
+  });
+}
+
+async function loadMovieReviews(movieId) {
+  try {
+    const res = await fetch(`/api/reviews?movieId=${encodeURIComponent(movieId)}`, {
+      cache: "no-store",
+    });
+    if (!res.ok) {
+      const txt = await res.text().catch(() => "");
+      throw new Error(txt || `Request failed with ${res.status}`);
+    }
+    const data = await res.json();
+    renderMovieSummary(data.summary);
+    renderMovieReviews(data.reviews || []);
+  } catch (err) {
+    console.error("Failed to load reviews:", err);
+    renderMovieSummary(null);
+    renderMovieReviews([]);
+  }
+}
+
 async function run() {
   const params = new URLSearchParams(location.search);
   const id = params.get("id");
@@ -71,34 +168,11 @@ async function run() {
   poster.decoding = "async";
   poster.style.display = "block";
 }
+
+    await loadMovieReviews(id);
   } catch (err) {
     console.error(err);
     showText(overview, "Unexpected error.");
   }
 }
 document.addEventListener("DOMContentLoaded", run);
-
-let stars = document.getElementsByClassName("star");
-let output = document.getElementById("output");
-
-function StarRate(n) {
-  remove();
-  for (let i=0; i<n; ++i) {
-    if (n == 1) cls = "one";
-    else if (n == 2) cls = "two";
-    else if (n == 3) cls = "three";
-    else if (n == 4) cls = "four";
-    else if (n == 5) cls = "five";
-    stars[i].className = "star " + cls;
-  }
-
-  output.innerText = "Rating: " + n + "/5";
-}
-
-function remove() {
-  let i = 0;
-  while (i < 5) {
-    stars[i].className = "star";
-    ++i;
-  }
-}

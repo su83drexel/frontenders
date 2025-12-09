@@ -1,0 +1,86 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  // Connection URL now lives in prisma.config.ts, not here (Prisma 7)
+}
+
+// Who can see a review. Enforced in API code.
+enum ReviewVisibility {
+  PUBLIC
+  FRIENDS
+}
+
+// Extra data for a Supabase user.
+// userId matches Supabase auth user.id (UUID as string).
+model UserProfile {
+  userId      String   @id
+  displayName String
+  avatarUrl   String?  // optional profile image
+  bio         String?  // profile bio text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  reviews  Review[]
+  comments Comment[]
+}
+
+// Core review entity.
+// One row = one user's review of one movie.
+model Review {
+  id              String            @id @default(cuid())
+  userId          String            // Supabase auth user id (UUID as text)
+  movieId         Int               // TMDB numeric movie id
+  movieTitle      String            // denormalised for quick display
+  moviePosterPath String?           // TMDB poster_path or null
+  rating          Int               // 1–5
+  text            String
+  visibility      ReviewVisibility  @default(PUBLIC)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  comments        Comment[]
+  userProfile     UserProfile?      @relation(fields: [userId], references: [userId])
+
+  @@index([movieId, createdAt])
+  @@index([userId, createdAt])
+  @@index([visibility, createdAt])
+}
+
+// Comment on a review.
+// Supports threaded replies via parentId.
+model Comment {
+  id        String   @id @default(cuid())
+
+  review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  reviewId  String
+
+  userId    String   // Supabase auth user id (UUID as text)
+  userProfile UserProfile? @relation(fields: [userId], references: [userId])
+
+  text      String
+
+  parent    Comment? @relation("CommentToComment", fields: [parentId], references: [id])
+  parentId  String?
+  replies   Comment[] @relation("CommentToComment")
+
+  createdAt DateTime @default(now())
+
+  @@index([reviewId, createdAt])
+  @@index([userId, createdAt])
+}
+
+// Friend / follow relationship.
+// One direction per row: (userId -> friendId).
+model Friend {
+  id        String   @id @default(cuid())
+  userId    String   // requester / owner
+  friendId  String   // other user
+  createdAt DateTime @default(now())
+
+  @@unique([userId, friendId])
+  @@index([friendId])
+}

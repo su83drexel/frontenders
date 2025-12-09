@@ -6,10 +6,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>FlopFinder Movie</title>
     <link rel="stylesheet" href="/styles/main.css" />
+    <style>
+    .movie-feedback-card {
+    margin-top: 2rem;
+  }
+
+  .movie-feedback-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr);
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .movie-summary-block {
+    border-radius: 0.9rem;
+    padding: 0.9rem 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .movie-summary-block .muted {
+    margin-bottom: 0.75rem;
+  }
+
+  .movie-summary-stats {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .movie-summary-stats .stat .value {
+    font-size: 1.6rem;
+  }
+
+  .movie-reviews-panel {
+    border-radius: 0.9rem;
+    padding: 0.9rem 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .movie-reviews-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .movie-reviews-panel-header h3 {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .movie-reviews-panel-header .muted {
+    font-size: 0.85rem;
+  }
+
+  .review-item {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .review-item:last-child {
+    border-bottom: none;
+  }
+
+  .review-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .review-item-user {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .review-item-meta {
+    font-size: 0.8rem;
+    opacity: 0.85;
+  }
+
+  .review-item-body {
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  @media (max-width: 800px) {
+    .movie-feedback-layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
 </head>
 
 <body>
     <div id="site-header"></div>
+
 
     <main class="container">
         <section class="hero">
@@ -26,11 +122,57 @@
                 <p id="movie-overview">Loading…</p>
             </article>
         </section>
-    </main>
+  <section class="section">
+    <article class="card movie-feedback-card">
+      <div class="section-heading">
+        <h2>Ratings and reviews</h2>
+        <span class="muted">
+          Scores and reviews come from user profiles. Anyone can read them.
+        </span>
+      </div>
 
-    <div id="site-footer"></div>
-    <script src="/js/layout.js" defer></script>
-    <script src="/js/movie.js" defer></script>
+      <div class="movie-feedback-layout">
+        <!-- Left: ratings summary -->
+        <div class="movie-summary-block">
+          <p class="muted">
+            Overall score based on user ratings.
+          </p>
+          <div class="movie-summary-stats">
+            <div class="stat">
+              <div class="value" id="movie-average-rating">—</div>
+              <div class="label">Average rating</div>
+            </div>
+            <div class="stat">
+              <div class="value" id="movie-rating-count">0</div>
+              <div class="label">Total ratings</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: reviews list -->
+        <div class="movie-reviews-panel">
+          <div class="movie-reviews-panel-header">
+            <h3>Reviews</h3>
+            <p class="muted">
+              Posted from user profiles. Posting happens on profile pages.
+            </p>
+          </div>
+
+          <div id="movie-reviews-list">
+            <!-- JS will render one .review-item per review -->
+            <p class="muted">
+              No reviews yet. Once someone posts from their profile, you will see it here.
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+</main>
+
+<div id="site-footer"></div>
+<script src="./js/layout.js" defer></script>
+<script type="module" src="./js/movie.js"></script>
 </body>
-
 </html>

@@ -2,18 +2,263 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FlopFinder Profile</title>
-    <link rel="stylesheet" href="/styles/main.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FlopFinder Profile</title>
+  <link rel="stylesheet" href="/styles/main.css" />
+
+  <style>
+    /* Profile page: review composer layout */
+
+    .profile-review-composer {
+      margin-top: 2rem;
+    }
+
+    .profile-review-composer-header {
+      margin-bottom: 1rem;
+    }
+
+    .profile-review-composer-header h2 {
+      margin-bottom: 0.25rem;
+    }
+
+    .profile-form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .profile-form-field {
+      flex: 1 1 180px;
+    }
+
+    .profile-text-small {
+      font-size: 0.8rem;
+      margin-top: 0.25rem;
+    }
+
+    @media (max-width: 600px) {
+      .profile-form-row {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <div id="site-header"></div>
-    <main class="container">
-    </main>
-    <div id="site-footer"></div>
-    <script src="/js/layout.js" defer></script>
+  <div id="site-header"></div>
+
+  <main class="container">
+    <!-- Profile hero: avatar, name, quick stats -->
+    <section class="hero profile-hero">
+      <div class="profile-top">
+        <div class="profile-user">
+          <div class="avatar" id="profile-avatar" aria-hidden="true">?</div>
+          <div>
+            <p class="eyebrow" id="profile-role">Member</p>
+            <h1 class="profile-name" id="profile-name">Profile</h1>
+            <p class="muted" id="profile-meta">Joined —</p>
+          </div>
+        </div>
+
+        <div class="profile-actions">
+          <!-- These buttons are visual only for now; behavior will come later -->
+          <button class="btn ghost" type="button">
+            Edit profile
+          </button>
+          <button class="btn primary" type="button">
+            Follow / Friend
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick stats card -->
+      <div class="card profile-stats">
+        <div class="stat">
+          <div class="value" id="stat-reviews">0</div>
+          <div class="label">Reviews</div>
+        </div>
+        <div class="stat">
+          <div class="value" id="stat-comments">0</div>
+          <div class="label">Comments</div>
+        </div>
+        <div class="stat">
+          <div class="value" id="stat-friends">0</div>
+          <div class="label">Friends</div>
+        </div>
+        <div class="stat">
+          <div class="value" id="stat-rating">—</div>
+          <div class="label">Avg rating</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Post a new review (posting UI lives on profile, not movie page) -->
+    <section class="section">
+      <article class="card profile-review-composer" id="profile-review-composer">
+        <div class="profile-review-composer-header">
+          <h2>Post a new review</h2>
+          <p class="muted">
+            Choose a movie, rate it, and share your thoughts. Posting will only be enabled for signed in users.
+          </p>
+        </div>
+
+        <!-- This form will be wired to Supabase / Prisma in JS -->
+        <form id="profile-review-form" novalidate>
+          <div class="profile-form-row">
+            <div class="profile-form-field">
+              <label for="profile-review-movie">Movie</label>
+              <input
+                id="profile-review-movie"
+                name="movieQuery"
+                type="text"
+                placeholder="Search for a movie…"
+                autocomplete="off"
+                required
+              />
+              <p class="muted profile-text-small" id="profile-review-movie-hint">
+                We will hook this up to TMDB search so you can pick an exact title. No movie names are hardcoded here.
+              </p>
+            </div>
+          </div>
+
+          <div class="profile-form-row">
+            <div class="profile-form-field">
+              <label for="profile-review-rating">Rating</label>
+              <select id="profile-review-rating" name="rating" required>
+                <option value="">Select</option>
+                <option value="5">5 ★</option>
+                <option value="4">4 ★</option>
+                <option value="3">3 ★</option>
+                <option value="2">2 ★</option>
+                <option value="1">1 ★</option>
+              </select>
+            </div>
+
+            <div class="profile-form-field">
+              <label for="profile-review-visibility">Visibility</label>
+              <select id="profile-review-visibility" name="visibility">
+                <option value="public" selected>Public</option>
+                <option value="friends">Friends only</option>
+              </select>
+              <p class="muted profile-text-small">
+                This setting will be enforced when we connect the backend.
+              </p>
+            </div>
+          </div>
+
+          <div class="profile-form-field" style="flex: 1 1 100%;">
+            <label for="profile-review-text">Review</label>
+            <textarea
+              id="profile-review-text"
+              name="text"
+              rows="4"
+              placeholder="What made this movie flop, or accidentally great?"
+              required
+            ></textarea>
+          </div>
+
+          <p class="muted profile-text-small" id="profile-review-message" aria-live="polite">
+            You must be logged in to actually post. We will enable this button in JavaScript for authenticated users.
+          </p>
+
+          <button class="btn btn-primary" type="submit" disabled aria-disabled="true">
+            Post review
+          </button>
+        </form>
+      </article>
+    </section>
+
+    <!-- Main profile content grid -->
+    <section class="section">
+      <div class="profile-grid">
+        <!-- About / bio -->
+        <article class="card">
+          <div class="section-heading">
+            <h3>About</h3>
+          </div>
+          <p id="profile-bio">
+            Tell the world what kind of flops you love to watch.
+          </p>
+        </article>
+
+        <!-- Interests / tags -->
+        <article class="card">
+          <div class="section-heading">
+            <h3>Interests</h3>
+            <span class="muted">Genres and themes</span>
+          </div>
+          <div class="pill-row" id="profile-interests">
+            <!-- Pills will be injected here -->
+          </div>
+          <p class="muted">
+            Your favorite genres, directors, or guilty pleasures will appear here.
+          </p>
+        </article>
+
+        <!-- Friends / follows -->
+        <article class="card">
+          <div class="section-heading">
+            <h3>Friends</h3>
+            <span class="muted">People you follow</span>
+          </div>
+          <div class="friend-list" id="profile-friends">
+            <!-- Friend cards will be injected here -->
+          </div>
+          <p class="muted">
+            Add friends to see their reviews in your personalized feed.
+          </p>
+        </article>
+
+        <!-- Reviews by this user -->
+        <article class="card">
+          <div class="section-heading">
+            <h3>Recent reviews</h3>
+            <span class="muted">What this user has been watching</span>
+          </div>
+          <ul class="review-list" id="profile-reviews">
+            <!-- Reviews will be injected here -->
+          </ul>
+          <p class="muted">
+            Reviews you write will show up here and on each movie page.
+          </p>
+        </article>
+
+        <!-- Activity: comments, follows, etc -->
+        <article class="card">
+          <div class="section-heading">
+            <h3>Activity</h3>
+            <span class="muted">Comments, replies, and more</span>
+          </div>
+          <ul class="activity-list" id="profile-activity">
+            <!-- Activity items will be injected here -->
+          </ul>
+          <p class="muted">
+            Commenting on reviews, replying in threads, and new friend activity will appear here.
+          </p>
+        </article>
+
+        <!-- Recommendations based on friends + trending -->
+        <article class="card recommendations">
+          <div class="section-heading">
+            <h3>Recommendations</h3>
+            <span class="muted">Based on friends and trending flops</span>
+          </div>
+          <div class="recommend-grid" id="profile-recommendations">
+            <!-- Recommended movies will be injected here -->
+          </div>
+          <p class="muted">
+            As we add recommendation logic, this will show movies your friends reviewed and what is trending.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="./js/layout.js" defer></script>
+  <script type="module" src="./js/profile.js"></script>
 </body>
 
 </html>

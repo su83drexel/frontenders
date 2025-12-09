@@ -1,5 +1,17 @@
 {
   "name": "frontenders",
+  "scripts": {
+    "prisma:generate": "prisma generate",
+    "db:migrate:dev": "prisma migrate dev",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:reset": "prisma migrate reset --force"
+  },
   "version": "1.0.0",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.1.0",
+    "@prisma/client": "^7.1.0",
+    "@supabase/supabase-js": "^2.45.4",
+    "prisma": "^7.1.0"
+  }
 }

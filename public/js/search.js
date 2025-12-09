@@ -101,7 +101,6 @@ async function run() {
   if (title) title.textContent = q ? `Results for ${q}` : "Search";
 
   if (!q) {
-    showMessage(grid, "Type a query above.");
     clear(pager);
     return;
   }

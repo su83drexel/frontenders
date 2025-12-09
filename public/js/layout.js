@@ -16,9 +16,18 @@ async function include(selector, url) {
     host.replaceChildren(frag);
 }
 
+const authModulePromise = import("/js/auth.js").catch((err) => {
+    console.error("Failed to load auth UI", err);
+    return null;
+});
+
 (async function bootLayout() {
-    await include("#site-header", "/partials/header.html");
-    await include("#site-footer", "/partials/footer.html");
+    const headerPromise = include("#site-header", "/partials/header.html");
+    const footerPromise = include("#site-footer", "/partials/footer.html");
+
+    await Promise.all([headerPromise, footerPromise]);
+    await authModulePromise;
+    window.dispatchEvent(new Event("ff:header-ready"));
 
     const footer = document.getElementById("site-footer");
     const yearEl = footer ? footer.querySelector(".year") : null;

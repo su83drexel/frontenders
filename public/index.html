@@ -2,52 +2,312 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FlopFinder</title>
-    <link rel="stylesheet" href="/styles/main.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FlopFinder</title>
+  <link rel="stylesheet" href="/styles/main.css" />
+
+  <style>
+    /* Top hero card */
+
+    .home-hero-card {
+      max-width: 48rem;
+      margin: 2.5rem auto 2rem auto;
+      padding: 2rem 2.25rem;
+      border-radius: 1.5rem;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .home-hero-card h1 {
+      font-size: clamp(2.4rem, 4vw, 3.1rem);
+      margin-bottom: 0.35rem;
+    }
+
+    .home-hero-card .muted {
+      max-width: 32rem;
+      margin: 0 auto 1.4rem auto;
+    }
+
+    .home-hero-tagline {
+      font-size: 0.95rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .home-hero-accent {
+      font-weight: 600;
+    }
+
+    .home-search-wrap {
+      max-width: 32rem;
+      margin: 0 auto;
+    }
+
+    .home-search-wrap .searchbar {
+      width: 100%;
+    }
+
+    .home-search-wrap #home-search-input {
+      flex: 1 1 auto;
+    }
+
+    .home-search-note {
+      margin-top: 0.4rem;
+      font-size: 0.85rem;
+    }
+
+    /* Lower sections */
+
+    .home-sections {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.4fr);
+      gap: 1.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Movie grid – slightly smaller cards than before */
+    .home-movie-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+    }
+
+    /* Make sure posters fit inside the box without being cut off */
+    .home-movie-grid .poster-wrap {
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .home-movie-grid .poster-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    @media (max-width: 880px) {
+      .home-hero-card {
+        margin-top: 2rem;
+        padding: 1.6rem 1.4rem;
+      }
+
+      .home-sections {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <div id="site-header"></div>
-    <main class="container">
+  <div id="site-header"></div>
 
-        <section>
-            <div class="content">
-                <h1>Flop Finder</h1>
-            </div>
-            <div class="subcontent">
-                <h2>Brought to you by FrontEnders</h2>
-            </div>
-        </section>
+  <main class="container">
+    <!-- Top hero card: centered title + tagline + search -->
+    <section class="home-hero-card">
+      <h1>FlopFinder</h1>
+      <p class="muted">
+        A home for the movies that missed the mark. Track what you have watched,
+        review the disasters, and see which flops your friends secretly love.
+      </p>
 
-        <section>
-            <div class="filterButtons">
-                <ul class="filter-links">
-                    <li><button id="genre">Genre</button></li>
-                    <li><button id="actors">Actor/Actress</button></li>
-                    <li><button id="year">Year</button></li>
-                    <li><button id="rating">Rating</button></li>
-                </ul>
-            </div>
-        </section>
-        <section>
-            <div class="searchbar">
-                <form id="home-search-form" class="searchbar" action="/search.html" method="GET">
-                    <input id="home-search-input" type="text" name="q" placeholder="Search Movies…" required />
-                    <button class="btn btn-primary" type="submit">Search</button>
-                </form>
-            </div>
-        </section>
+      <p class="home-hero-tagline">
+        <span class="home-hero-accent">Millions of movies.</span>
+        Find the ones worth watching for all the wrong reasons.
+      </p>
 
-        <section style="background-color: #F3A712;">
-            <div>
-                <h3 style="color: #440381;">Dev's Favorites</h3>
-            </div>
-        </section>
-    </main>
-    <div id="site-footer"></div>
-    <script src="/js/layout.js" defer></script>
+      <div class="home-search-wrap">
+        <form id="home-search-form" class="searchbar" action="/search.html" method="GET">
+          <input
+            id="home-search-input"
+            type="text"
+            name="q"
+            placeholder="Search movies, directors, or years…"
+            required
+          />
+          <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+        <p class="muted home-search-note">
+          Start typing a title or a name to begin exploring.
+        </p>
+      </div>
+    </section>
+
+    <!-- Two main sections: Popular now (left) and Dev’s favourites (right) -->
+    <section class="section">
+      <div class="home-sections">
+        <!-- Popular now -->
+        <article class="card">
+          <div class="section-heading">
+            <h2>Popular right now</h2>
+            <span class="muted">
+              Powered by TMDB discover. This updates as new movies trend in our catalog.
+            </span>
+          </div>
+
+          <div id="home-popular" class="home-movie-grid">
+            <!-- Filled dynamically from /api/discover -->
+          </div>
+        </article>
+
+        <!-- Dev's favourites -->
+        <article class="card">
+          <div class="section-heading">
+            <h2>Dev's favorite movies</h2>
+            <span class="muted">
+              A row of legendary flops. For now this reuses discover data; later we will plug in a curated set.
+            </span>
+          </div>
+
+          <div id="home-dev-favorites" class="home-movie-grid">
+            <!-- Filled dynamically from /api/discover -->
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="./js/layout.js" defer></script>
+
+  <script>
+    (function () {
+      const IMG_BASE = "https://image.tmdb.org/t/p/w342";
+      const TMDB_FALLBACK =
+        "https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyph-...svg";
+
+      function posterUrl(path) {
+        return path ? IMG_BASE + path : TMDB_FALLBACK;
+      }
+
+      // Match search.js card format
+      function createMovieCard(movie) {
+        const article = document.createElement("article");
+        article.className = "card";
+
+        const link = document.createElement("a");
+        link.className = "movie-card";
+        link.href = "/moviePage.html?id=" + encodeURIComponent(movie.id);
+        link.setAttribute(
+          "aria-label",
+          (movie.title ?? "Movie") + " details"
+        );
+
+        const wrap = document.createElement("div");
+        wrap.className = "poster-wrap";
+
+        const img = document.createElement("img");
+        img.src = posterUrl(movie.poster_path);
+        img.alt = (movie.title ?? "Movie") + " poster";
+        img.loading = "lazy";
+        img.decoding = "async";
+
+        wrap.appendChild(img);
+        link.appendChild(wrap);
+
+        const h3 = document.createElement("h3");
+        h3.textContent = movie.title ?? "Untitled";
+
+        const p = document.createElement("p");
+        const year = (movie.release_date || "").slice(0, 4) || "—";
+        const score =
+          typeof movie.vote_average === "number"
+            ? movie.vote_average.toFixed(1)
+            : "—";
+        p.textContent = year + " • ★ " + score;
+
+        article.appendChild(link);
+        article.appendChild(h3);
+        article.appendChild(p);
+        return article;
+      }
+
+      async function fetchDiscover(page) {
+        const url = new URL("/api/discover", window.location.origin);
+        url.searchParams.set("page", String(page || 1));
+
+        const res = await fetch(url.toString(), { cache: "no-store" });
+        if (!res.ok) {
+          const text = await res.text().catch(() => "");
+          throw new Error(
+            "Failed to load discover data: " +
+            res.status +
+            " " +
+            (text || "")
+          );
+        }
+        return res.json();
+      }
+
+      async function populateHomeSections() {
+        const popularContainer = document.getElementById("home-popular");
+        const devContainer = document.getElementById("home-dev-favorites");
+        if (!popularContainer || !devContainer) return;
+
+        popularContainer.textContent = "";
+        devContainer.textContent = "";
+
+        function showMessage(el, text) {
+          if (!el) return;
+          const p = document.createElement("p");
+          p.className = "muted";
+          p.textContent = text;
+          el.replaceChildren(p);
+        }
+
+        try {
+          const data = await fetchDiscover(1);
+          const results = Array.isArray(data.results) ? data.results : [];
+
+          if (!results.length) {
+            showMessage(
+              popularContainer,
+              "No movies available yet. Check TMDB configuration."
+            );
+            showMessage(
+              devContainer,
+              "No movies available yet. Check TMDB configuration."
+            );
+            return;
+          }
+
+          // First 8: popular
+          const popularMovies = results.slice(0, 8);
+          // Next 8 (or reuse): dev favourites
+          const devSource =
+            results.length > 8 ? results.slice(8, 16) : popularMovies;
+
+          const fragPopular = document.createDocumentFragment();
+          popularMovies.forEach((m) => {
+            fragPopular.appendChild(createMovieCard(m));
+          });
+
+          const fragDev = document.createDocumentFragment();
+          devSource.forEach((m) => {
+            fragDev.appendChild(createMovieCard(m));
+          });
+
+          popularContainer.replaceChildren(fragPopular);
+          devContainer.replaceChildren(fragDev);
+        } catch (err) {
+          console.error(err);
+          showMessage(
+            popularContainer,
+            "Unable to load movies. Please verify TMDB_API_KEY and TMDB_BASE_URL."
+          );
+          showMessage(
+            devContainer,
+            "Unable to load movies. Please verify TMDB_API_KEY and TMDB_BASE_URL."
+          );
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", populateHomeSections);
+    })();
+  </script>
 </body>
 
 </html>

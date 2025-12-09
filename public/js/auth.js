@@ -1,6 +1,8 @@
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
 
 let supabaseClient = null;
+let supabaseClientPromise = null;
 let envCache = null;
 
 /* ---------- Utilities ---------- */
@@ -10,6 +12,43 @@ function $(id) {
 function show(el, visible) {
   if (!el) return;
   el.style.display = visible ? "" : "none";
+}
+
+function setCachedAuthState(isLoggedIn) {
+  try {
+    localStorage.setItem("ff-auth-state", isLoggedIn ? "in" : "out");
+  } catch (_) {
+    /* ignore storage errors */
+  }
+}
+
+function getCachedAuthState() {
+  try {
+    return localStorage.getItem("ff-auth-state");
+  } catch (_) {
+    return null;
+  }
+}
+
+function renderHeader(isLoggedIn) {
+  const btnSignIn = $("signin");
+  const linkProfile = $("profile-link");
+  const btnLogout = $("logout");
+  const authWrap = document.querySelector(".auth-buttons");
+
+  show(btnSignIn, !isLoggedIn);
+  show(btnLogout, isLoggedIn);
+
+  if (linkProfile) {
+    show(linkProfile, isLoggedIn);
+    if (isLoggedIn) {
+      linkProfile.textContent = "My Profile";
+      linkProfile.setAttribute("href", "/profile.html");
+      linkProfile.setAttribute("aria-label", "Go to your profile");
+    }
+  }
+
+  authWrap?.classList.add("ready");
 }
 
 /* ---------- Env + Supabase init ---------- */
@@ -26,71 +65,60 @@ async function getEnv() {
 
 async function getSupabase() {
   if (supabaseClient) return supabaseClient;
-  const env = await getEnv();
-  if (!env.SUPABASE_URL || !env.SUPABASE_ANON_KEY) {
-    console.error("Supabase env missing. Set SUPABASE_URL and SUPABASE_ANON_KEY in Vercel and .env.local.");
-    // Create a no op client to avoid runtime errors if someone clicks buttons
-    return null;
-  }
-  supabaseClient = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY, {
-    auth: {
-      persistSession: true,
-      autoRefreshToken: true,
-      detectSessionInUrl: true,
-    },
-  });
-  return supabaseClient;
+
+  if (supabaseClientPromise) return supabaseClientPromise;
+
+  supabaseClientPromise = (async () => {
+    const env = await getEnv();
+    if (!env.SUPABASE_URL || !env.SUPABASE_ANON_KEY) {
+      console.error(
+        "Supabase env missing. Set SUPABASE_URL and SUPABASE_ANON_KEY in Vercel and .env.local."
+      );
+      supabaseClient = null;
+      return null;
+    }
+
+    const client = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true,
+      },
+    });
+
+    supabaseClient = client;
+    return client;
+  })();
+
+  return supabaseClientPromise;
 }
 
 /* ---------- Header state handling ---------- */
 async function applyHeaderState() {
   const client = await getSupabase();
-  const btnSignIn = $("signin");
-  const btnRegister = $("register");
-  const linkProfile = $("profile-link");
 
   if (!client) {
-    // If Supabase is not configured, keep sign-in/register visible and hide profile
-    show(btnSignIn, true);
-    show(btnRegister, true);
-    show(linkProfile, false);
+    // If Supabase is not configured, keep sign-in visible and hide the rest
+    renderHeader(false);
+    setCachedAuthState(false);
     return;
   }
 
   const { data: { session } } = await client.auth.getSession();
   const isLoggedIn = !!session?.user;
 
-  show(btnSignIn, !isLoggedIn);
-  show(btnRegister, !isLoggedIn);
-
-  if (linkProfile) {
-    show(linkProfile, isLoggedIn);
-    if (isLoggedIn) {
-      linkProfile.textContent = "Profile";
-      linkProfile.setAttribute("href", "/profile.html");
-      linkProfile.setAttribute("aria-label", "Go to your profile");
-    }
-  }
+  renderHeader(isLoggedIn);
+  setCachedAuthState(isLoggedIn);
 }
 
 function wireHeaderActions() {
   const btnSignIn = $("signin");
-  const btnRegister = $("register");
   const btnLogout = $("logout");
 
   if (btnSignIn) {
     btnSignIn.addEventListener("click", (e) => {
       e.preventDefault();
-      // Navigate to a auth page
-      // query param selects mode
       location.href = "/login.html";
-    });
-  }
-
-  if (btnRegister) {
-    btnRegister.addEventListener("click", (e) => {
-      e.preventDefault();
-      location.href = "/login.html?mode=register";
     });
   }
 
@@ -116,11 +144,35 @@ async function subscribeAuthChanges() {
 }
 
 /* ---------- Boot ---------- */
-document.addEventListener("DOMContentLoaded", () => {
-  wireHeaderActions();
+let wired = false;
+function initAuthUI() {
+  const hasHeaderControls = $("signin") || $("logout") || $("profile-link");
+  if (!hasHeaderControls) return;
+
+  const cached = getCachedAuthState();
+  if (cached === "in" || cached === "out") {
+    renderHeader(cached === "in");
+  }
+
+  if (!wired) {
+    wireHeaderActions();
+    subscribeAuthChanges();
+    wired = true;
+  }
   applyHeaderState();
-  subscribeAuthChanges();
-});
+}
+
+function requestInit() {
+  initAuthUI();
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", requestInit);
+} else {
+  requestInit();
+}
+
+window.addEventListener("ff:header-ready", requestInit);
 
 export async function getSupabaseClient() {
   return getSupabase();
